@@ -1,0 +1,9 @@
+.hint.checked {
+  color: red;
+}
+
+#puzzle {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: max-content max-content;
+}
