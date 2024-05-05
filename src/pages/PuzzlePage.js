@@ -7,6 +7,7 @@ import PuzzleButtons from "../components/PuzzleButtons";
 
 function PuzzlePage() {
   let {size, seed} = useParams();
+  // need to move state upwards
     
   return (
     <>
