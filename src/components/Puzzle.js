@@ -1,8 +1,6 @@
 import React from "react";
 import Board from "./Board.js";
 
-import generatePuzzle from "../utility/generatePuzzle.js";
-import { CELL_STATE } from "../utility/constants.js";
 import RowHints from "./RowHints.js";
 import ColHints from "./ColHints.js"
 
@@ -11,32 +9,21 @@ import "./Puzzle.css";
 
 class Puzzle extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    const cells = Array.from({length: this.props.size}, () => (
-      Array.from({length: this.props.size}, () => CELL_STATE.BLANK)));
-
-
-    this.solution = generatePuzzle(this.props.size, this.props.seed);
-
-    //this.state = {cells: cells};
-    this.state = {
-      cells: this.solution.map(row => [...row])
-    };
-
+    // HERE TO MAKE TESTING EASIER FOR NOW. THE PUZZLE SHOULD INITIALISE TO BE EMPTY
+    this.props.setCells(structuredClone(this.props.solution));
 
     // bind methods
     this.setCellState = this.setCellState.bind(this);
   }
 
   setCellState(row, col, cellState) {
-    const newCells = [...this.state.cells];
-    newCells[row][col] = cellState;
-
-    this.setState({
-      ...this.state,
-      cells: newCells
-    });
+    this.props.setCells(oldCells => {
+      const newCells = structuredClone(oldCells);
+      newCells[row][col] = cellState;
+      return newCells;
+    })
   }
 
 
@@ -63,11 +50,11 @@ class Puzzle extends React.Component {
     
     return (
       <div id="puzzle">
-        <div empty></div>
-        <ColHints solution={this.solution} />
-        <RowHints solution={this.solution} />
+        <div>{/*empty*/}</div>
+        <ColHints solution={this.props.solution} />
+        <RowHints solution={this.props.solution} />
         <Board
-          cells={this.state.cells}  
+          cells={this.props.cells}  
           setCellState={this.setCellState}
         />
       </div>
