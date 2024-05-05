@@ -1,13 +1,25 @@
-import React from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import Puzzle from "../components/Puzzle";
 import PuzzleButtons from "../components/PuzzleButtons";
+import generatePuzzle from "../utility/generatePuzzle";
+import { CELL_STATE } from "../utility/constants";
 //import "./PuzzlePage.css";
 
 
 function PuzzlePage() {
   let {size, seed} = useParams();
-  // need to move state upwards
+
+  // default state
+  const defaultCells = Array.from({length: size}, () => (
+    Array.from({length: size}, () => CELL_STATE.BLANK)));
+  
+  // state 
+  const [cells, setCells] = useState(defaultCells)
+
+  const solution = generatePuzzle(size, seed);
+  
     
   return (
     <>
@@ -16,6 +28,9 @@ function PuzzlePage() {
       <Puzzle 
         size={size}
         seed={seed}
+        cells={cells}
+        setCells={setCells}
+        solution={solution}
       />
       <PuzzleButtons />
     </>
