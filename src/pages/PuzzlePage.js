@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Puzzle from "../components/Puzzle";
 import PuzzleButtons from "../components/PuzzleButtons";
 import generatePuzzle from "../utility/generatePuzzle";
+import { generateRowHints, generateColHints } from "../utility/puzzleUtility";
 import { CELL_STATE } from "../utility/constants";
 //import "./PuzzlePage.css";
 
@@ -18,8 +19,7 @@ function PuzzlePage() {
   // state 
   const [cells, setCells] = useState(defaultCells)
 
-  const solution = generatePuzzle(size, seed);
-  
+  const solution = generatePuzzle(size, seed);  
     
   return (
     <>
@@ -32,7 +32,12 @@ function PuzzlePage() {
         setCells={setCells}
         solution={solution}
       />
-      <PuzzleButtons />
+      <PuzzleButtons 
+        defaultCells={defaultCells}
+        cells={cells}
+        setCells={setCells}
+        solution={solution}
+      />
     </>
   )
 }
