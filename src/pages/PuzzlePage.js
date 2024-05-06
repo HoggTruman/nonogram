@@ -17,7 +17,8 @@ function PuzzlePage() {
     Array.from({length: size}, () => CELL_STATE.BLANK)));
   
   // state 
-  const [cells, setCells] = useState(defaultCells)
+  const [cells, setCells] = useState(defaultCells);
+  const [puzzleComplete, setPuzzleComplete] = useState(false);
 
   const solution = generatePuzzle(size, seed);  
     
@@ -30,12 +31,15 @@ function PuzzlePage() {
         seed={seed}
         cells={cells}
         setCells={setCells}
+        puzzleComplete={puzzleComplete}
         solution={solution}
       />
       <PuzzleButtons 
-        defaultCells={defaultCells}
         cells={cells}
         setCells={setCells}
+        puzzleComplete={puzzleComplete}
+        setPuzzleComplete={setPuzzleComplete}
+        defaultCells={defaultCells}
         solution={solution}
       />
     </>

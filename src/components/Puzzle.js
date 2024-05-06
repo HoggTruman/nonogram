@@ -38,6 +38,7 @@ class Puzzle extends React.Component {
         <Board
           cells={this.props.cells}  
           setCellState={this.setCellState}
+          puzzleComplete={this.props.puzzleComplete}
         />
       </div>
     )

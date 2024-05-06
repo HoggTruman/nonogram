@@ -25,6 +25,10 @@ class Cell extends React.Component {
   }
 
   handleLeftClick(event) {
+    if (this.props.puzzleComplete) {
+      return;
+    }
+
     if (this.props.cellState === CELL_STATE.FILLED) {
       this.props.setCellState(this.props.row, this.props.col, CELL_STATE.BLANK)
     }
@@ -35,6 +39,10 @@ class Cell extends React.Component {
 
   handleRightClick(event) {
     event.preventDefault();
+    if (this.props.puzzleComplete) {
+      return;
+    }
+
     if (this.props.cellState === CELL_STATE.CROSSED) {
       this.props.setCellState(this.props.row, this.props.col, CELL_STATE.BLANK)
     }
@@ -45,6 +53,7 @@ class Cell extends React.Component {
 
   handleClicks(event) {
     // TODO: implement drag at some point
+
     if (event.buttons === 1) {
       if (this.props.cellState === 1) {
         this.props.setCellState(this.props.row, this.props.col, 0)
