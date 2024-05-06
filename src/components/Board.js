@@ -25,6 +25,7 @@ class Board extends React.Component {
                   col={colIndex}
                   cellState={this.props.cells[rowIndex][colIndex]}
                   setCellState={this.props.setCellState}
+                  puzzleComplete={this.props.puzzleComplete}
                 />
               ))}
             </div>
