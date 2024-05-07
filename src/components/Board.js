@@ -1,19 +1,25 @@
 import React from "react";
-import Cell from "./Cell";
+
+import { CELL_STATE } from "../utility/constants";
 
 import "./Board.css"
 
-import { CELL_STATE } from "../utility/constants";
+
 const CELL_STATE_CLASSES = {
   0: "blank",
   1: "filled",
   2: "crossed"
 }
 
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    
+
+    this.cursorCellState = null;
+
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
   }
 
 
@@ -21,37 +27,50 @@ class Board extends React.Component {
     const cellElements = document.querySelectorAll('.cell');
 
     cellElements.forEach(cell => {
-      cell.addEventListener("mousedown", event => {
-        this.handleClicks(Number(cell.dataset.row), Number(cell.dataset.col), event.buttons)
-      })
-      
+      cell.addEventListener("mousedown", this.handleMouseDown)
+      cell.addEventListener("mouseover", this.handleMouseOver)    
     })
-    const board = document.getElementById("board")
 
-    document.addEventListener("mouseup", event => {})
-
-    board.addEventListener("contextmenu", event => {
-      event.preventDefault()
+    document.addEventListener("mouseup", () => {
+        this.cursorCellState = null;    
     })
   }
-  // make seperate for hover and mousedown??
-  handleClicks(row, col, buttonsPressed) {
-    // console.log(row, col, buttonsPressed)
-    if (buttonsPressed === 1) {
+  
+  handleMouseDown(event) {
+    if (this.props.puzzleComplete) { return; }
+
+    const row = event.target.dataset.row;
+    const col = event.target.dataset.col;
+    
+    if (event.button === 0) {
       if (this.props.cells[row][col] === CELL_STATE.FILLED) {
-        this.props.setCellState(row, col, CELL_STATE.BLANK)
+        this.cursorCellState = CELL_STATE.BLANK;
       }
       else {
-        this.props.setCellState(row, col, CELL_STATE.FILLED)
+        this.cursorCellState = CELL_STATE.FILLED;
       }
     }
-    else if (buttonsPressed === 2) {
+    else if (event.button === 2) {
       if (this.props.cells[row][col] === CELL_STATE.CROSSED) {
-        this.props.setCellState(row, col, CELL_STATE.BLANK)
+        this.cursorCellState = CELL_STATE.BLANK;
       }
       else {
-        this.props.setCellState(row, col, CELL_STATE.CROSSED)
+        this.cursorCellState = CELL_STATE.CROSSED;
       }
+    }
+
+    this.props.setCellState(row, col, this.cursorCellState);
+  }
+
+  handleMouseOver(event) {
+    if (this.props.puzzleComplete) { return; }
+
+    if (this.cursorCellState !== null) {
+      this.props.setCellState(
+        event.target.dataset.row,
+        event.target.dataset.col,
+        this.cursorCellState
+      )
     }
   }
 
