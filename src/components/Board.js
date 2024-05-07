@@ -1,11 +1,77 @@
 import React from "react";
-import Cell from "./Cell";
+
+import { CELL_STATE } from "../utility/constants";
 
 import "./Board.css"
+
+
+const CELL_STATE_CLASSES = {
+  0: "blank",
+  1: "filled",
+  2: "crossed"
+}
+
 
 class Board extends React.Component {
   constructor(props) {
     super(props);
+
+    this.cursorCellState = null;
+
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+  }
+
+
+  componentDidMount() {
+    const cellElements = document.querySelectorAll('.cell');
+
+    cellElements.forEach(cell => {
+      cell.addEventListener("mousedown", this.handleMouseDown)
+      cell.addEventListener("mouseover", this.handleMouseOver)    
+    })
+
+    document.addEventListener("mouseup", () => {
+        this.cursorCellState = null;    
+    })
+  }
+  
+  handleMouseDown(event) {
+    if (this.props.puzzleComplete) { return; }
+
+    const row = event.target.dataset.row;
+    const col = event.target.dataset.col;
+    
+    if (event.button === 0) {
+      if (this.props.cells[row][col] === CELL_STATE.FILLED) {
+        this.cursorCellState = CELL_STATE.BLANK;
+      }
+      else {
+        this.cursorCellState = CELL_STATE.FILLED;
+      }
+    }
+    else if (event.button === 2) {
+      if (this.props.cells[row][col] === CELL_STATE.CROSSED) {
+        this.cursorCellState = CELL_STATE.BLANK;
+      }
+      else {
+        this.cursorCellState = CELL_STATE.CROSSED;
+      }
+    }
+
+    this.props.setCellState(row, col, this.cursorCellState);
+  }
+
+  handleMouseOver(event) {
+    if (this.props.puzzleComplete) { return; }
+
+    if (this.cursorCellState !== null) {
+      this.props.setCellState(
+        event.target.dataset.row,
+        event.target.dataset.col,
+        this.cursorCellState
+      )
+    }
   }
 
   render() {
@@ -19,14 +85,14 @@ class Board extends React.Component {
               className="boardRow"
             >
               {row.map((cell, colIndex) => (
-                <Cell 
+                <button 
                   key={colIndex.toString()} 
-                  row={rowIndex} 
-                  col={colIndex}
-                  cellState={this.props.cells[rowIndex][colIndex]}
-                  setCellState={this.props.setCellState}
-                  puzzleComplete={this.props.puzzleComplete}
-                />
+                  data-row={rowIndex} 
+                  data-col={colIndex}
+                  className={"cell " + CELL_STATE_CLASSES[this.props.cells[rowIndex][colIndex]]}
+                >
+                  {/* a cross for crossed?*/}
+                </button>
               ))}
             </div>
           ))

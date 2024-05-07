@@ -26,6 +26,13 @@ class Puzzle extends React.Component {
     })
   }
 
+  componentDidMount() {
+    const puzzleElement = document.getElementById("puzzle");
+    puzzleElement.addEventListener("contextmenu", event => {
+      event.preventDefault();
+    });
+  }
+
 
   render() {
     // Could probably have a single "hints" component and then pass in col or row as props and the corresponding hint generator
