@@ -6,4 +6,5 @@
   display: grid;
   grid-template-columns: max-content max-content;
   grid-template-rows: max-content max-content;
+  background-color: bisque;
 }
