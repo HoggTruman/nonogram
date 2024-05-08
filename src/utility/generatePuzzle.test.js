@@ -1,17 +1,16 @@
 import generatePuzzle from "./generatePuzzle";
-import { CELL_STATE } from "./constants";
+import { CELL_STATE, BOARD_SIZES } from "./constants";
 import { transpose } from "./puzzleUtility";
 
-const SIZES = [5, 10, 15, 20, 25];
 
 describe("generatePuzzle tests", () => {
   describe("test puzzle is correct size", () => {
-    test.each(SIZES)("correct number of rows", async size => {
+    test.each(BOARD_SIZES)("correct number of rows", async size => {
       const puzzle = generatePuzzle(size, 123);
       expect(puzzle.length).toStrictEqual(size);
     });
 
-    test.each(SIZES)("correct number of columns", async size => {
+    test.each(BOARD_SIZES)("correct number of columns", async size => {
       const puzzle = generatePuzzle(size, 123);
       puzzle.forEach(row => {
         expect(row.length).toStrictEqual(size);
@@ -23,7 +22,7 @@ describe("generatePuzzle tests", () => {
   describe("test same seed gives same puzzle", () => {
     const seeds = [467186, 2194791, 1242, 99852];
 
-    SIZES.forEach(size => {   
+    BOARD_SIZES.forEach(size => {   
       test.each(seeds)(`for size ${size}`, async seed => {
         const puzzle1 = generatePuzzle(size, seed);
         const puzzle2 = generatePuzzle(size, seed);
@@ -36,7 +35,7 @@ describe("generatePuzzle tests", () => {
   describe("test different seed gives different puzzle", () => {
     const seeds = [[467186, 232], [2194791, 532], [1242, 12], [99852, 41000]];
 
-    SIZES.forEach(size => {
+    BOARD_SIZES.forEach(size => {
       test.each(seeds)(`for size ${size}`, async (seed1, seed2) => {
         const puzzle1 = generatePuzzle(size, seed1);
         const puzzle2 = generatePuzzle(size, seed2);
@@ -64,7 +63,7 @@ describe("generatePuzzle tests", () => {
   })
 
   describe("test all rows and columns are non-empty", () => {
-    test.each(SIZES)("all rows and columns are non-empty with size %i", (size) => {
+    test.each(BOARD_SIZES)("all rows and columns are non-empty with size %i", (size) => {
       const puzzle = generatePuzzle(size, 123);
       const transposedPuzzle = transpose(puzzle);
 
