@@ -1,10 +1,10 @@
 import React from "react";
 
 import checkPuzzle from "../utility/checkPuzzle";
-import "./PuzzleButtons.css";
+import "./PuzzleMenu.css";
 
 
-class PuzzleButtons extends React.Component {
+class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -69,4 +69,4 @@ class PuzzleButtons extends React.Component {
   }
 }
 
-export default PuzzleButtons;
+export default PuzzleMenu;
