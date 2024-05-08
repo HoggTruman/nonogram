@@ -1,15 +1,8 @@
 import React from "react";
 
-import { CELL_STATE } from "../utility/constants";
+import { CELL_STATE, CELL_STATE_CLASSES } from "../utility/constants";
 
 import "./Board.css"
-
-
-const CELL_STATE_CLASSES = {
-  0: "blank",
-  1: "filled",
-  2: "crossed"
-}
 
 
 class Board extends React.Component {
