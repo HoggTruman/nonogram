@@ -1,8 +1,9 @@
 import React from "react";
-import Board from "./Board.js";
 
-import RowHints from "./RowHints.js";
-import ColHints from "./ColHints.js"
+import Board from "./Board.js";
+import Hints from "./Hints.js";
+
+import { generateRowHints, generateColHints } from "../utility/puzzleUtility.js";
 
 import "./Puzzle.css";
 
@@ -40,8 +41,16 @@ class Puzzle extends React.Component {
     return (
       <div id="puzzle">
         <div>{/*empty*/}</div>
-        <ColHints solution={this.props.solution} />
-        <RowHints solution={this.props.solution} />
+        <Hints 
+          rowOrCol="col"
+          generator={generateColHints}
+          solution={this.props.solution}
+        />
+        <Hints 
+          rowOrCol="row"
+          generator={generateRowHints}
+          solution={this.props.solution}
+        />
         <Board
           cells={this.props.cells}  
           setCellState={this.setCellState}

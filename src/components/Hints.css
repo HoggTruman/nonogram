@@ -1,3 +1,16 @@
+.rowHint {
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  background-color: red;
+}
+
+.rowHint > .hint {
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+}
+
 #colHints {
   display: flex;
   align-items: end;
