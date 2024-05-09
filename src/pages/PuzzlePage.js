@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Puzzle from "../components/Puzzle";
-import PuzzleButtons from "../components/PuzzleButtons";
+import PuzzleMenu from "../components/PuzzleMenu";
 import generatePuzzle from "../utility/generatePuzzle";
 import { generateRowHints, generateColHints } from "../utility/puzzleUtility";
 import { CELL_STATE } from "../utility/constants";
@@ -14,7 +14,8 @@ function PuzzlePage() {
 
   // default state
   const defaultCells = Array.from({length: size}, () => (
-    Array.from({length: size}, () => CELL_STATE.BLANK)));
+    Array.from({length: size}, () => CELL_STATE.BLANK))
+  );
   
   // state 
   const [cells, setCells] = useState(defaultCells);
@@ -34,7 +35,7 @@ function PuzzlePage() {
         puzzleComplete={puzzleComplete}
         solution={solution}
       />
-      <PuzzleButtons 
+      <PuzzleMenu
         cells={cells}
         setCells={setCells}
         puzzleComplete={puzzleComplete}

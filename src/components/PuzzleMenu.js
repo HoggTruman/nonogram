@@ -1,17 +1,16 @@
 import React from "react";
 
 import checkPuzzle from "../utility/checkPuzzle";
-import "./PuzzleButtons.css";
+import "./PuzzleMenu.css";
 
 
-class PuzzleButtons extends React.Component {
+class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       statusMessage: ""
     };
-
   }
 
   componentDidMount() {
@@ -22,8 +21,6 @@ class PuzzleButtons extends React.Component {
       if (this.props.puzzleComplete) {
         return;
       }
-
-      const statusMessage = document.getElementById("status-message")
       
       if (checkPuzzle(this.props.cells, this.props.solution)) {
         this.props.setPuzzleComplete(true);
@@ -48,14 +45,10 @@ class PuzzleButtons extends React.Component {
   render() {
     return (
       <div>
-        <button
-          id="btn-check-puzzle"
-        >
+        <button id="btn-check-puzzle">
           Check Puzzle
         </button>
-        <button
-          id="btn-restart-puzzle"
-        >
+        <button id="btn-restart-puzzle">
           Restart Puzzle
         </button>
         <div 
@@ -69,4 +62,4 @@ class PuzzleButtons extends React.Component {
   }
 }
 
-export default PuzzleButtons;
+export default PuzzleMenu;

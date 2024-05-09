@@ -4,13 +4,12 @@ import '@testing-library/jest-dom';
 import {render, fireEvent, screen} from '@testing-library/react';
 
 import Board from "../Board";
-import { CELL_STATE, CELL_STATE_CLASSES } from "../../utility/constants";
+import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/constants";
 
-const SIZES = [5, 10, 15, 20, 25];
 
 describe("Board Component tests", () => {
   describe("elements rendered correctly from cells prop", () => {
-    test.each(SIZES)("board renders correct number of cells", size => {
+    test.each(BOARD_SIZES)("board renders correct number of cells", size => {
       const cells = Array.from({length: size}, () => (
         Array.from({length: size}, () => CELL_STATE.BLANK))
       );
