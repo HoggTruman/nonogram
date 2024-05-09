@@ -14,7 +14,8 @@ function PuzzlePage() {
 
   // default state
   const defaultCells = Array.from({length: size}, () => (
-    Array.from({length: size}, () => CELL_STATE.BLANK)));
+    Array.from({length: size}, () => CELL_STATE.BLANK))
+  );
   
   // state 
   const [cells, setCells] = useState(defaultCells);
