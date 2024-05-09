@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import {render, fireEvent, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import Board from "../Board";
 import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/constants";
@@ -82,7 +82,7 @@ describe("Board Component tests", () => {
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.BLANK])
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.CROSSED])
       });
-    });
+    })
 
 
 
@@ -108,7 +108,7 @@ describe("Board Component tests", () => {
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.BLANK])
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.FILLED])
       });
-    });
+    })
   })
 })
 
