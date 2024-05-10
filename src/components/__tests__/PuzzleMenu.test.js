@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event'
 
 import PuzzleMenu from "../PuzzleMenu";
 import { CELL_STATE } from '../../utility/constants';
+import { create2DArray } from '../../utility/puzzleUtility';
 
 
 
@@ -19,9 +20,7 @@ const PUZZLE_INCOMPLETE_TEXT = "The puzzle is incomplete / there are errors";
 
 describe("Puzzle Menu Tests", () => {
   test("PuzzleMenu has correct initial render", () => {
-    const cells = Array.from({length: 5}, () => (
-      Array.from({length: 5}, () => CELL_STATE.BLANK))
-    );
+    const cells = create2DArray(5, CELL_STATE.BLANK);
 
     render(
       <PuzzleMenu
@@ -45,12 +44,8 @@ describe("Puzzle Menu Tests", () => {
   describe("Check Button tests", () => {
     test("When correct solution, PUZZLE_COMPLETE_TEXT appears", async () => {
       const user = userEvent.setup();
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
-      const solution = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
+      const cells = create2DArray(5, CELL_STATE.FILLED);
+      const solution = create2DArray(5, CELL_STATE.FILLED);
       const setPuzzleComplete = jest.fn().mockName("setPuzzleComplete");
 
       render(
@@ -78,12 +73,8 @@ describe("Puzzle Menu Tests", () => {
 
     test("When incorrect solution, PUZZLE_INCOMPLETE_TEXT appears", async () => {
       const user = userEvent.setup();
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
-      const solution = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.BLANK))
-      );
+      const cells = create2DArray(5, CELL_STATE.FILLED);
+      const solution = create2DArray(5, CELL_STATE.BLANK);
 
       render(
         <PuzzleMenu
@@ -112,15 +103,9 @@ describe("Puzzle Menu Tests", () => {
       const user = userEvent.setup();
       jest.spyOn(global, 'confirm').mockReturnValueOnce(true);
 
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
-      const solution = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
-      const defaultCells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.BLANK))
-      );
+      const cells = create2DArray(5, CELL_STATE.FILLED);
+      const solution = create2DArray(5, CELL_STATE.FILLED);
+      const defaultCells = create2DArray(5, CELL_STATE.BLANK);
       const setCells = jest.fn().mockName('setCells');
       const setPuzzleComplete = jest.fn().mockName('setPuzzleComplete');
 

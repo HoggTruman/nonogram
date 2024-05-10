@@ -12,6 +12,20 @@ function transpose(matrix) {
 
 
 /**
+ *  Creates a square 2D array with specified length and element values
+ * 
+ * @param {integer} size The length of the inner and outer arrays
+ * @param {*} value The value to fill the cells with
+ * @returns A size by size 2D array with value elements
+ */
+function create2DArray(size, value) {
+  return Array.from({length: size}, () => (
+    Array.from({length: size}, () => value))
+  );
+}
+
+
+/**
  * A helper function to generate the hints for the given array
  * 
  * @param {*} array A row/column to generate the hint array for
@@ -62,4 +76,4 @@ function generateColHints(cells) {
 }
 
 
-export { generateHint, generateRowHints, generateColHints, transpose};
+export { transpose, create2DArray, generateHint, generateRowHints, generateColHints };

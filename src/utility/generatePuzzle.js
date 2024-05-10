@@ -1,5 +1,6 @@
 import seedrandom from "seedrandom";
 import { CELL_STATE } from "./constants";
+import { create2DArray } from "./puzzleUtility";
 
 
 /**
@@ -12,11 +13,8 @@ import { CELL_STATE } from "./constants";
  */
 function generatePuzzle(size, seed) {
   const rng = seedrandom(seed);
-  //let availableCells = Array.from({length: size}, (_, i) => i)
   let availableCells = Math.ceil(size * size / 2);
-  const puzzle = Array.from({length: size}, () => (
-    Array.from({length: size}, () => CELL_STATE.BLANK)
-  ))
+  const puzzle = create2DArray(size, CELL_STATE.BLANK);
 
   // ensure every row has at least one block filled
   for (let k = 0; k < size; k++) {

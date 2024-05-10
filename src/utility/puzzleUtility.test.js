@@ -1,4 +1,4 @@
-import { generateHint, generateRowHints, generateColHints, transpose } from "./puzzleUtility.js";
+import { generateHint, generateRowHints, generateColHints, transpose, create2DArray } from "./puzzleUtility.js";
 
 
 describe("generateHint Tests", () => {
@@ -147,4 +147,31 @@ describe("transpose tests", () => {
   test.each(matrices)("test correct transpose", (input, expected) => {
     expect(transpose(input)).toStrictEqual(expected);
   });
+})
+
+
+
+describe("create2DArray tests", () => {
+  const params = [
+    [1, 0], [1, -2], [1, "a"], [1, true],
+    [2, 0], [2, -2], [2, "a"], [2, true],
+    [5, 0], [5, -2], [5, "a"], [5, true],
+    [10, 0], [10, -2], [10, "a"], [10, true],
+    [15, 0], [15, -2], [15, "a"], [15, true],
+    [20, 0], [20, -2], [20, "a"], [20, true],
+    [25, 0], [25, -2], [25, "a"], [25, true],
+  ];
+
+  test.each(params)("size %i, value %p", (size, value) => {
+    const actual = create2DArray(size, value);
+    const expected = [];
+    for (let i = 0; i < size; i++) {
+      expected[i] = [];
+      for (let j = 0; j < size; j++) {
+          expected[i][j] = value;
+      }
+    }
+
+    expect(actual).toStrictEqual(expected);
+  }) 
 })
