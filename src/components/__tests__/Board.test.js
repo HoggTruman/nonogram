@@ -9,7 +9,7 @@ import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/const
 
 describe("Board Component tests", () => {
   describe("elements rendered correctly from cells prop", () => {
-    test.each(BOARD_SIZES)("board renders correct number of cells", size => {
+    test.each(BOARD_SIZES)("board renders correct number of cells (size: %i)", size => {
       const cells = Array.from({length: size}, () => (
         Array.from({length: size}, () => CELL_STATE.BLANK))
       );
