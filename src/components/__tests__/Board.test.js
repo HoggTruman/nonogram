@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import {render, fireEvent, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import Board from "../Board";
 import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/constants";
@@ -9,7 +9,7 @@ import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/const
 
 describe("Board Component tests", () => {
   describe("elements rendered correctly from cells prop", () => {
-    test.each(BOARD_SIZES)("board renders correct number of cells", size => {
+    test.each(BOARD_SIZES)("board renders correct number of cells (size: %i)", size => {
       const cells = Array.from({length: size}, () => (
         Array.from({length: size}, () => CELL_STATE.BLANK))
       );
@@ -82,7 +82,7 @@ describe("Board Component tests", () => {
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.BLANK])
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.CROSSED])
       });
-    });
+    })
 
 
 
@@ -108,7 +108,7 @@ describe("Board Component tests", () => {
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.BLANK])
         expect(cell).not.toHaveClass(CELL_STATE_CLASSES[CELL_STATE.FILLED])
       });
-    });
+    })
   })
 })
 
