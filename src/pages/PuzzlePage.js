@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom";
 import Puzzle from "../components/Puzzle";
 import PuzzleMenu from "../components/PuzzleMenu";
 import generatePuzzle from "../utility/generatePuzzle";
-import { generateRowHints, generateColHints } from "../utility/puzzleUtility";
-import { CELL_STATE } from "../utility/constants";
+import generateDefaultCells from "../utility/generateDefaultCells";
 //import "./PuzzlePage.css";
 
 
@@ -13,9 +12,7 @@ function PuzzlePage() {
   let {size, seed} = useParams();
 
   // default state
-  const defaultCells = Array.from({length: size}, () => (
-    Array.from({length: size}, () => CELL_STATE.BLANK))
-  );
+  const defaultCells = generateDefaultCells(size);
   
   // state 
   const [cells, setCells] = useState(defaultCells);

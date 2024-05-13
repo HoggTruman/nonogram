@@ -4,15 +4,14 @@ import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 
 import Board from "../Board";
+import { create2DArray } from '../../utility/puzzleUtility';
 import { CELL_STATE, CELL_STATE_CLASSES, BOARD_SIZES } from "../../utility/constants";
 
 
 describe("Board Component tests", () => {
   describe("elements rendered correctly from cells prop", () => {
     test.each(BOARD_SIZES)("board renders correct number of cells (size: %i)", size => {
-      const cells = Array.from({length: size}, () => (
-        Array.from({length: size}, () => CELL_STATE.BLANK))
-      );
+      const cells = create2DArray(size, CELL_STATE.BLANK);
       const setCellState = jest.fn(); // unused
       const puzzleComplete = false; // unused
     
@@ -35,9 +34,7 @@ describe("Board Component tests", () => {
 
 
     test("board renders 'BLANK' cells with correct class", () => {
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.BLANK))
-      );
+      const cells = create2DArray(5, CELL_STATE.BLANK)
       const setCellState = jest.fn(); // unused
       const puzzleComplete = false; // unused
     
@@ -61,9 +58,7 @@ describe("Board Component tests", () => {
 
 
     test("board renders 'FILLED' cells with correct class", () => {
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.FILLED))
-      );
+      const cells = create2DArray(5, CELL_STATE.FILLED);
       const setCellState = jest.fn(); // unused
       const puzzleComplete = false; // unused
     
@@ -87,9 +82,7 @@ describe("Board Component tests", () => {
 
 
     test("board renders 'CROSSED' cells with correct class", () => {
-      const cells = Array.from({length: 5}, () => (
-        Array.from({length: 5}, () => CELL_STATE.CROSSED))
-      );
+      const cells = create2DArray(5, CELL_STATE.CROSSED);
       const setCellState = jest.fn(); // unused
       const puzzleComplete = false; // unused
     
