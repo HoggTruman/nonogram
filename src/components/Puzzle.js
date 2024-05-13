@@ -12,9 +12,6 @@ class Puzzle extends React.Component {
   constructor(props) {
     super(props);
 
-    // HERE TO MAKE TESTING EASIER FOR NOW. THE PUZZLE SHOULD INITIALISE TO BE EMPTY
-    this.props.setCells(structuredClone(this.props.solution));
-
     // bind methods
     this.setCellState = this.setCellState.bind(this);
   }
@@ -35,9 +32,7 @@ class Puzzle extends React.Component {
   }
 
 
-  render() {
-    // Could probably have a single "hints" component and then pass in col or row as props and the corresponding hint generator
-    
+  render() {    
     return (
       <div id="puzzle">
         <div>{/*empty*/}</div>
