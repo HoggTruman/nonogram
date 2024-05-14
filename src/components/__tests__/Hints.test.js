@@ -39,10 +39,14 @@ describe("Hints tests", () => {
       [f, f, f, f, b]
     ];
 
-    const mockRowHintGenerator = jest.fn()
-      .mockName("mockRowHintGenerator")
+    const mockRowHintsGenerator = jest.fn()
+      .mockName("mockRowHintsGenerator")
       .mockReturnValue(rowHints)
     ;
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
 
 
 
@@ -53,12 +57,13 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="row"
-          generator={mockRowHintGenerator}
+          hintsGenerator={mockRowHintsGenerator}
           solution={solution}
         />
       );
   
-      const hintButtons = screen.getAllByRole("button");
+      const hintButtons = screen.getAllByRole("button").filter(button => button.textContent !== "");
+
       expect(hintButtons).toHaveLength(flatRowHints.length);
   
       flatRowHints.forEach((hint, i) => {
@@ -72,7 +77,7 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="row"
-          generator={mockRowHintGenerator}
+          hintsGenerator={mockRowHintsGenerator}
           solution={solution}
         />
       );
@@ -85,8 +90,12 @@ describe("Hints tests", () => {
       
       rowHints.forEach((rowHint, rowIndex) => {
         const rowHintElement = rowHintsElement.children[rowIndex];
+        const hintElements = Array.from(rowHintElement.children)
+          .filter(hintElement => hintElement.textContent !== "")
+        ;
         rowHint.forEach((hint, hintIndex) => {
-          expect(rowHintElement.children[hintIndex]).toHaveTextContent(hint);
+          
+          expect(hintElements[hintIndex]).toHaveTextContent(hint);
         });
       });
     })
@@ -98,12 +107,12 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="row"
-          generator={mockRowHintGenerator}
+          hintsGenerator={mockRowHintsGenerator}
           solution={solution}
         />
       );
 
-      const hintButtons = screen.getAllByRole("button");
+      const hintButtons = screen.getAllByRole("button").filter(button => button.textContent !== "");
       
       for(const hintButton of hintButtons) {
         expect(hintButton).not.toHaveClass(hintCheckedClass);
@@ -137,10 +146,14 @@ describe("Hints tests", () => {
       [f, f, b, b, f]
     ];
 
-    const mockColHintGenerator = jest.fn()
+    const mockColHintsGenerator = jest.fn()
       .mockName("mockColHintGenerator")
       .mockReturnValue(colHints)
     ;
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
 
 
 
@@ -151,13 +164,13 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="col"
-          generator={mockColHintGenerator}
+          hintsGenerator={mockColHintsGenerator}
           solution={solution}
         />
       );
   
-      const hintButtons = screen.getAllByRole("button");
-      expect(hintButtons).toHaveLength(flatColHints.length)
+      const hintButtons = screen.getAllByRole("button").filter(button => button.textContent !== "");
+      expect(hintButtons).toHaveLength(flatColHints.length);
   
       // buttons appear "in order" with correct text content (this doesn't account for styling though)
       flatColHints.forEach((hint, i) => {
@@ -171,7 +184,7 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="col"
-          generator={mockColHintGenerator}
+          hintsGenerator={mockColHintsGenerator}
           solution={solution}
         />
       );
@@ -184,8 +197,12 @@ describe("Hints tests", () => {
       
       colHints.forEach((colHint, colIndex) => {
         const colHintElement = colHintsElement.children[colIndex];
+        const hintElements = Array.from(colHintElement.children)
+          .filter(hintElement => hintElement.textContent !== "")
+        ;
+
         colHint.forEach((hint, hintIndex) => {
-          expect(colHintElement.children[hintIndex]).toHaveTextContent(hint);
+          expect(hintElements[hintIndex]).toHaveTextContent(hint);
         });
       });
     })
@@ -197,12 +214,12 @@ describe("Hints tests", () => {
       const {container} = render(
         <Hints
           rowOrCol="col"
-          generator={mockColHintGenerator}
+          hintsGenerator={mockColHintsGenerator}
           solution={solution}
         />
       );
 
-      const hintButtons = screen.getAllByRole("button");
+      const hintButtons = screen.getAllByRole("button").filter(button => button.textContent !== "");
       
       for(const hintButton of hintButtons) {
         expect(hintButton).not.toHaveClass(hintCheckedClass);
