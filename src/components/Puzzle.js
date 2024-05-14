@@ -38,12 +38,12 @@ class Puzzle extends React.Component {
         <div>{/*empty*/}</div>
         <Hints 
           rowOrCol="col"
-          generator={generateColHints}
+          hintsGenerator={generateColHints}
           solution={this.props.solution}
         />
         <Hints 
           rowOrCol="row"
-          generator={generateRowHints}
+          hintsGenerator={generateRowHints}
           solution={this.props.solution}
         />
         <Board

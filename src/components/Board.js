@@ -68,7 +68,6 @@ class Board extends React.Component {
   }
 
   render() {
-    // I think using index as key here is fine since the lists are not rearranged. elements are only added and removed from the end
     return (
       <div id="board">
         {
@@ -76,6 +75,7 @@ class Board extends React.Component {
             <div 
               key={rowIndex.toString()}
               className="boardRow"
+              data-row={rowIndex}
             >
               {row.map((cell, colIndex) => (
                 <button 
@@ -84,7 +84,7 @@ class Board extends React.Component {
                   data-col={colIndex}
                   className={"cell " + CELL_STATE_CLASSES[this.props.cells[rowIndex][colIndex]]}
                 >
-                  {/* a cross for crossed?*/}
+                  {this.props.cells[rowIndex][colIndex] === CELL_STATE.CROSSED? "✖": ""}
                 </button>
               ))}
             </div>
