@@ -4,42 +4,66 @@ import { create2DArray } from "./puzzleUtility";
 
 
 /**
- * CURRENTLY A BAD IMPLEMENTATION JUST TO GET THINGS ROLLING 
- * IT IS THEORETICALLY INFINITE, AS IT JUST SEEKS RANDOM CELLS OVER AND OVER RATHER THAN CHOOSING FROM AVAILABLE CELLS 
- * COULD ALSO POTENTIALLY LIMIT NUMBER OF BLOCK GROUPS PER ROW/COLUMN BASED ON SIZE AS CURRENTLY 
+ * Creates a size by size 2D-array containing a puzzle
+ * 
  * @param {*} size The number of rows and columns of the puzzle
  * @param {*} seed The seed of the puzzle
  * @returns A size by size 2D-array containing a puzzle
  */
 function generatePuzzle(size, seed) {
   const rng = seedrandom(seed);
-  let availableCells = Math.ceil(size * size / 2);
   const puzzle = create2DArray(size, CELL_STATE.BLANK);
 
-  // ensure every row has at least one block filled
-  for (let k = 0; k < size; k++) {
-    const randomColumnIndex = Math.floor(rng() * size);
-    const randomRowIndex = Math.floor(rng() * size);
+  const MAX_BLOCK_SIZE = Math.floor(0.8 * size);
+  const MIN_FILLED = Math.ceil(size * size / 2);
 
-    if (puzzle[k][randomColumnIndex] === CELL_STATE.BLANK) {
-      puzzle[k][randomColumnIndex] = CELL_STATE.FILLED;
-      availableCells--;
-    }
-
-    if (puzzle[randomRowIndex][k] === CELL_STATE.BLANK) {
-      puzzle[randomRowIndex][k] = CELL_STATE.FILLED;
-      availableCells--;
-    }
+  function getCol(colIndex) {
+    return puzzle.map(row => row[colIndex]);
   }
 
-  while (availableCells > 0) {
-    const randomColumnIndex = Math.floor(rng() * size);
-    const randomRowIndex = Math.floor(rng() * size);
+  function setCol(colIndex, newCol) {
+    puzzle.forEach((row, rowIndex) => {
+      row[colIndex] = newCol[rowIndex];
+    })
+  }
 
-    if (puzzle[randomRowIndex][randomColumnIndex] === CELL_STATE.BLANK) {
-      puzzle[randomRowIndex][randomColumnIndex] = CELL_STATE.FILLED;
-      availableCells--;
+
+  // ensure every row and column has filled cells
+  for (let k = 0; k < size; k++) {
+    // set row
+    const rowStart = Math.floor(rng() * size);
+    puzzle[k].fill(
+      CELL_STATE.FILLED,
+      rowStart,
+      rowStart + 1 + Math.floor(rng() * Math.min(MAX_BLOCK_SIZE, size - rowStart))
+    )
+
+    // set col
+    const colStart = Math.floor(rng() * size);
+    const newCol = getCol(k).fill(
+      CELL_STATE.FILLED,
+      colStart,
+      colStart + 1 + Math.floor(rng() * Math.min(MAX_BLOCK_SIZE, size - colStart))
+    )
+    setCol(k, newCol);
+  }
+
+
+  let filledCount = puzzle.flat().reduce((n, x) => n + (x === CELL_STATE.FILLED), 0);
+
+  // add random cells if less than the required filled amount
+  while (filledCount < MIN_FILLED) {
+    const flatPuzzle = puzzle.flat();
+    let randomIndex = Math.floor(rng() * size * size); 
+
+    while (flatPuzzle[randomIndex] !== CELL_STATE.BLANK) {
+      randomIndex = (randomIndex + 1) % (size * size) ;
     }
+
+    const rowIndex = Math.floor(randomIndex / size);
+    const colIndex = randomIndex % size;
+    puzzle[rowIndex][colIndex] = CELL_STATE.FILLED; 
+    filledCount++;
   }
 
   return puzzle
