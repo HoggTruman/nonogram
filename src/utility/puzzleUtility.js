@@ -6,9 +6,10 @@ import { CELL_STATE } from "./constants";
  * @param {*} matrix A 2D-array
  * @returns The 2D-array transpose of the input matrix
  */
-function transpose(matrix) {
+export function transpose(matrix) {
   return matrix[0].map((col, colIndex) => matrix.map(row => row[colIndex]))
 }
+
 
 
 /**
@@ -18,11 +19,42 @@ function transpose(matrix) {
  * @param {*} value The value to fill the cells with
  * @returns A size by size 2D array with value elements
  */
-function create2DArray(size, value) {
+export function create2DArray(size, value) {
   return Array.from({length: size}, () => (
     Array.from({length: size}, () => value))
   );
 }
+
+
+
+/**
+ * CURRENTLY UNUSED
+ * A helper function to generate the number of block groups for the given array
+ * 
+ * @param {*} array A row/column to calculate the number of block groups for
+ * @returns The integer number of block groups 
+ */
+export function getNumBlockGroups(rowOrCol) {
+  let numBlockGroups = 0
+  let inBlock = false;
+
+  for (let i = 0; i < rowOrCol.length; i++) {
+    if (rowOrCol[i] === CELL_STATE.FILLED) {
+      inBlock = true;
+
+      if (i === rowOrCol.length - 1) {
+        numBlockGroups++;
+      }
+    }
+    else if (inBlock) {
+      numBlockGroups++;
+      inBlock = false;
+    }
+  }
+
+  return numBlockGroups;
+}
+
 
 
 /**
@@ -31,7 +63,7 @@ function create2DArray(size, value) {
  * @param {*} array A row/column to generate the hint array for
  * @returns Hint array for the input row/column array
  */
-function generateHint(array) {
+export function generateHint(array) {
   const hintArray = [];
   let currentBlockLength = 0;
 
@@ -53,15 +85,17 @@ function generateHint(array) {
 }
 
 
+
 /**
  * Generates a 2D-array containing the hints for each row
  * 
  * @param {*} cells A 2D-array of the cells of a puzzle
  * @returns A 2D-array containing a hint array for each row of the puzzle
  */
-function generateRowHints(cells) {
+export function generateRowHints(cells) {
   return cells.map(row => generateHint(row))
 }
+
 
 
 /**
@@ -70,10 +104,8 @@ function generateRowHints(cells) {
  * @param {*} cells A 2D-array of the cells of a puzzle
  * @returns A 2D-array containing a hint array for each column of the puzzle
  */
-function generateColHints(cells) {
+export function generateColHints(cells) {
   const cellsTranspose = transpose(cells);
   return cellsTranspose.map(col => generateHint(col))
 }
 
-
-export { transpose, create2DArray, generateHint, generateRowHints, generateColHints };

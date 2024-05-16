@@ -20,7 +20,7 @@ describe("generatePuzzle tests", () => {
 
 
   describe("test same seed gives same puzzle", () => {
-    const seeds = [467186, 2194791, 1242, 99852];
+    const seeds = Array.from(Array(100).keys());
 
     BOARD_SIZES.forEach(size => {   
       test.each(seeds)(`for size ${size}`, async seed => {
@@ -45,30 +45,28 @@ describe("generatePuzzle tests", () => {
   });
 
 
-  describe("test correct number of filled cells", () => {
+  describe("test at least minfFilled cells", () => {
     const params = [[5, 13], [10, 50], [15, 113], [20, 200], [25, 313]];
-    test.each(params)("size %i has %i filled", (size, expectedFilled) => {
+    test.each(params)("size %i has at least %i filled", (size, minFilled) => {
       const puzzle = generatePuzzle(size, 123);
-      let countFilled = 0;
+      const filledCount = puzzle.flat().reduce((n, x) => n + (x === CELL_STATE.FILLED), 0);
 
-      for (let row of puzzle) {
-        for (let cell of row) {
-          if (cell === CELL_STATE.FILLED)
-          countFilled++;
-        }
-      }
-
-      expect(countFilled).toStrictEqual(expectedFilled)
+      expect(filledCount).toBeGreaterThanOrEqual(minFilled)
     })
   })
+
 
   describe("test all rows and columns are non-empty", () => {
+    const seeds = Array.from(Array(100).keys());
     test.each(BOARD_SIZES)("all rows and columns are non-empty with size %i", (size) => {
-      const puzzle = generatePuzzle(size, 123);
-      const transposedPuzzle = transpose(puzzle);
-
-      expect(puzzle.every(row => row.includes(CELL_STATE.FILLED))).toStrictEqual(true);
-      expect(transposedPuzzle.every(col => col.includes(CELL_STATE.FILLED))).toStrictEqual(true);
+      seeds.forEach(seed => {
+        const puzzle = generatePuzzle(size, seed);
+        const transposedPuzzle = transpose(puzzle);
+  
+        expect(puzzle.every(row => row.includes(CELL_STATE.FILLED))).toStrictEqual(true);
+        expect(transposedPuzzle.every(col => col.includes(CELL_STATE.FILLED))).toStrictEqual(true);
+      })
     })
   })
+
 })

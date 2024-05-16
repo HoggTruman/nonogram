@@ -1,4 +1,4 @@
-import { generateHint, generateRowHints, generateColHints, transpose, create2DArray } from "./puzzleUtility.js";
+import { generateHint, generateRowHints, generateColHints, transpose, create2DArray, getNumBlockGroups } from "./puzzleUtility.js";
 
 
 describe("generateHint Tests", () => {
@@ -82,6 +82,7 @@ describe("generateHint Tests", () => {
 })
 
 
+
 describe("generateRowHints Tests", () => {
   test("5 by 5 puzzle #1", () => {
     const input = [
@@ -104,6 +105,7 @@ describe("generateRowHints Tests", () => {
 })
 
 
+
 describe("generateColHints Tests", () => {
   test("5 by 5 puzzle #1", () => {
     const input = [
@@ -124,6 +126,7 @@ describe("generateColHints Tests", () => {
     expect(generateColHints(input)).toStrictEqual(expected)
   })
 })
+
 
 
 describe("transpose tests", () => {
@@ -174,4 +177,50 @@ describe("create2DArray tests", () => {
 
     expect(actual).toStrictEqual(expected);
   }) 
+})
+
+
+
+describe("getNumBlockGroups tests", () => {
+  test("completely blank #1", () => {
+    const input = [0, 0, 0, 0, 0];
+    const output = 0;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("partially filled #1", () => {
+    const input = [0, 1, 0, 1, 0];
+    const output = 2;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("partially filled #2", () => {
+    const input = [0, 1, 0, 1, 0];
+    const output = 2;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("partially filled #3", () => {
+    const input = [0, 1, 1, 1, 0];
+    const output = 1;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("partially filled #4", () => {
+    const input = [0, 1, 1, 1, 1];
+    const output = 1;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("partially filled #5", () => {
+    const input = [1, 0, 1, 0, 1];
+    const output = 3;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
+
+  test("completely filled #1", () => {
+    const input = [1, 1, 1, 1, 1];
+    const output = 1;
+    expect(getNumBlockGroups(input)).toStrictEqual(output);
+  })
 })
