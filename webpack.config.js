@@ -23,7 +23,7 @@ module.exports = {
       path.join(__dirname, '/public'),
       path.join(__dirname, '/dist')
     ],
-    //hot: true,
+    hot: true,
     historyApiFallback: true,
   },
   module: {
@@ -47,6 +47,13 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i, 
+        loader: 'file-loader',
+        options: {
+          name: '/public/[name].[ext]'
+        }
       }
     ]
   }
