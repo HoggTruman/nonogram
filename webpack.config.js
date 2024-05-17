@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: "bundle.js",
-    
+    assetModuleFilename: 'public/[name][ext]',
     publicPath: '/dist/',
     clean: true
   },
@@ -50,10 +50,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i, 
-        loader: 'file-loader',
-        options: {
-          name: '/public/[name].[ext]'
-        }
+        type: 'asset/resource',
       }
     ]
   }
