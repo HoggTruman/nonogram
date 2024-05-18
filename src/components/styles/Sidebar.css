@@ -1,0 +1,81 @@
+#sidebar {
+  background: white;
+  height: 100%;
+  width: 10%;
+  position: fixed;
+  left: 0;
+  border-right: 2px solid black;
+}
+
+#sidebar > #logo {
+  width: 96%;
+  margin: 2% 2%;
+}
+
+#sidebar > h2 {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#sidebar > hr {
+  opacity: 1;
+  width: 90%;
+  margin: 0.5rem auto;
+}
+
+#sidebar > hr.thick {
+  border: 1px solid black;
+}
+
+#size-buttons {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.size-button {
+  margin: 0.2rem auto
+}
+
+.size-button > input[type=radio] + label {
+  width: 100%; 
+  box-shadow: none;
+  box-shadow: inset 0 0 0 2px white;
+  outline:0px !important;
+  transition: none;
+  color: black;
+  border: 2px solid black;
+  border-radius: 0;
+}
+
+.size-button > input[type=radio]:hover + label {
+  background-color: lightgrey;
+  border-color: black;
+  }
+
+.size-button > input[type=radio]:checked + label {
+background-color: black;
+border-color: black;
+color: white;
+box-shadow: inset 0 0 0 2px white;
+}
+
+#enter-seed {
+  width: 100%;
+  background-color: green;
+}
+
+#enter-seed > label {
+  display: block;
+  width: 90%;
+  text-align: center;
+  margin: 0.5rem auto;
+}
+
+#enter-seed > input[type=number] {
+  display: block;
+  box-shadow: none !important;
+  width: 80%;
+  margin: 0.5rem auto;
+  
+}
+
