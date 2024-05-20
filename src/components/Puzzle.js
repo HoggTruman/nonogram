@@ -5,7 +5,7 @@ import Hints from "./Hints.js";
 
 import { generateRowHints, generateColHints } from "../utility/puzzleUtility.js";
 
-import "./Puzzle.css";
+import "./styles/Puzzle.css";
 
 
 class Puzzle extends React.Component {

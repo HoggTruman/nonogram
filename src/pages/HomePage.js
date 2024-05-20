@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-//import "./HomePage.css";
+//import "./styles/HomePage.css";
 import WithNavigateHook from "../components/WithNavigateHook";
 
 class HomePage extends React.Component {

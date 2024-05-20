@@ -1,7 +1,7 @@
 import React from "react";
 
 import checkPuzzle from "../utility/checkPuzzle";
-import "./PuzzleMenu.css";
+import "./styles/PuzzleMenu.css";
 
 
 class PuzzleMenu extends React.Component {
