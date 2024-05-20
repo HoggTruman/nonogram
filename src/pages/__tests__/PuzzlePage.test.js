@@ -807,5 +807,61 @@ describe("Puzzle Board tests", () => {
       };
     })
   })
+
+
+
+  describe("Check Button tests", () => {
+    const size = 5;
+
+    beforeEach(() => {
+      useParams.mockReturnValue({size: size, seed: 0});
+    })
+  
+
+  
+    test("When correct solution, PUZZLE_COMPLETE_TEXT appears", async () => {
+      const user = userEvent.setup();
+  
+      const solution = create2DArray(5, CELL_STATE.FILLED);
+      const cells = create2DArray(5, CELL_STATE.FILLED);
+  
+      spy_generatePuzzle.mockReturnValue(solution);
+      spy_generateDefaultCells.mockReturnValue(cells);
+  
+  
+      const { container } = render(<PuzzlePage />);
+  
+      const checkButton = screen.getByRole("button", {name: CHECK_BUTTON_TEXT});
+  
+      await user.click(checkButton);
+  
+      expect(screen.getByText(PUZZLE_COMPLETE_TEXT)).toBeInTheDocument();
+      expect(screen.queryByText(PUZZLE_INCOMPLETE_TEXT)).toBeNull();
+    });
+  
+  
+  
+    test("When incorrect solution, PUZZLE_INCOMPLETE_TEXT appears", async () => {
+      const user = userEvent.setup();
+  
+      const solution = create2DArray(5, CELL_STATE.BLANK);
+      const cells = create2DArray(5, CELL_STATE.FILLED);
+  
+      spy_generatePuzzle.mockReturnValue(solution);
+      spy_generateDefaultCells.mockReturnValue(cells);
+  
+      
+      const { container } = render(<PuzzlePage />);
+  
+      const checkButton = screen.getByRole("button", {name: CHECK_BUTTON_TEXT});
+  
+      await user.click(checkButton);
+  
+      expect(screen.getByText(PUZZLE_INCOMPLETE_TEXT)).toBeInTheDocument();
+      expect(screen.queryByText(PUZZLE_COMPLETE_TEXT)).toBeNull();
+    })
+  })
 })
+
+
 

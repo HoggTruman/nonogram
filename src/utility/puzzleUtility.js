@@ -56,6 +56,16 @@ export function getNumBlockGroups(rowOrCol) {
 }
 
 
+/**
+ * Generate a random seed in a consistent range
+ * 
+ * @returns A random seed integer
+ */
+export function getRandomSeed() {
+  return Math.floor(Math.random() * 1000000000);
+}
+
+
 
 /**
  * A helper function to generate the hints for the given array

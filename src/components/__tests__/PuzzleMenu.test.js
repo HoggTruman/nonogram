@@ -26,7 +26,7 @@ describe("Puzzle Menu Tests", () => {
       <PuzzleMenu
         cells={cells}
         setCells={jest.fn()}
-        puzzleComplete={false}
+        puzzleComplete={null}
         setPuzzleComplete={jest.fn()}
         defaultCells={cells}
         solution={cells}
@@ -42,7 +42,7 @@ describe("Puzzle Menu Tests", () => {
 
 
   describe("Check Button tests", () => {
-    test("When correct solution, PUZZLE_COMPLETE_TEXT appears", async () => {
+    test("When correct solution, setPuzzleComplete called with true", async () => {
       const user = userEvent.setup();
       const cells = create2DArray(5, CELL_STATE.FILLED);
       const solution = create2DArray(5, CELL_STATE.FILLED);
@@ -52,7 +52,7 @@ describe("Puzzle Menu Tests", () => {
         <PuzzleMenu
           cells={cells}
           setCells={jest.fn()}
-          puzzleComplete={false}
+          puzzleComplete={null}
           setPuzzleComplete={setPuzzleComplete}
           defaultCells={cells}
           solution={solution}
@@ -65,23 +65,22 @@ describe("Puzzle Menu Tests", () => {
 
       expect(setPuzzleComplete.mock.calls).toHaveLength(1);
       expect(setPuzzleComplete.mock.calls[0][0]).toStrictEqual(true);
-      expect(screen.getByText(PUZZLE_COMPLETE_TEXT)).toBeInTheDocument();
-      expect(screen.queryByText(PUZZLE_INCOMPLETE_TEXT)).toBeNull();
     });
 
 
 
-    test("When incorrect solution, PUZZLE_INCOMPLETE_TEXT appears", async () => {
+    test("When incorrect solution, setPuzzleComplete called with false", async () => {
       const user = userEvent.setup();
       const cells = create2DArray(5, CELL_STATE.FILLED);
       const solution = create2DArray(5, CELL_STATE.BLANK);
+      const setPuzzleComplete = jest.fn().mockName("setPuzzleComplete");
 
       render(
         <PuzzleMenu
           cells={cells}
           setCells={jest.fn()}
-          puzzleComplete={false}
-          setPuzzleComplete={jest.fn()}
+          puzzleComplete={null}
+          setPuzzleComplete={setPuzzleComplete}
           defaultCells={cells}
           solution={solution}
         />
@@ -91,8 +90,8 @@ describe("Puzzle Menu Tests", () => {
 
       await user.click(checkButton);
 
-      expect(screen.getByText(PUZZLE_INCOMPLETE_TEXT)).toBeInTheDocument();
-      expect(screen.queryByText(PUZZLE_COMPLETE_TEXT)).toBeNull();
+      expect(setPuzzleComplete.mock.calls).toHaveLength(1);
+      expect(setPuzzleComplete.mock.calls[0][0]).toStrictEqual(false);
     })
   })
 
@@ -113,7 +112,7 @@ describe("Puzzle Menu Tests", () => {
         <PuzzleMenu
           cells={cells}
           setCells={setCells}
-          puzzleComplete={false}
+          puzzleComplete={null}
           setPuzzleComplete={setPuzzleComplete}
           defaultCells={defaultCells}
           solution={solution}
@@ -127,7 +126,7 @@ describe("Puzzle Menu Tests", () => {
       expect(setCells.mock.calls).toHaveLength(1);
       expect(setCells.mock.calls[0][0]).toStrictEqual(defaultCells);
       expect(setPuzzleComplete.mock.calls).toHaveLength(1);
-      expect(setPuzzleComplete.mock.calls[0][0]).toStrictEqual(false);
+      expect(setPuzzleComplete.mock.calls[0][0]).toBeNull();
       expect(screen.queryByText(PUZZLE_COMPLETE_TEXT)).toBeNull();
       expect(screen.queryByText(PUZZLE_INCOMPLETE_TEXT)).toBeNull();
     });
