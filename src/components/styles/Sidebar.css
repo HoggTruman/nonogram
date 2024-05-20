@@ -60,8 +60,10 @@ box-shadow: inset 0 0 0 2px white;
 }
 
 #enter-seed {
-  width: 100%;
-  background-color: green;
+  width: 80%;
+  background-color: white;
+  border: 2px solid black;
+  margin: 1rem auto;
 }
 
 #enter-seed > label {
@@ -79,3 +81,8 @@ box-shadow: inset 0 0 0 2px white;
   
 }
 
+#puzzle-form > input#generate-from-seed, #how-to-play {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
