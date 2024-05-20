@@ -2,7 +2,7 @@ import React from "react";
 
 import { CELL_STATE, CELL_STATE_CLASSES } from "../utility/constants";
 
-import "./Board.css"
+import "./styles/Board.css"
 
 
 class Board extends React.Component {

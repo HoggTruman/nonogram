@@ -7,23 +7,23 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: "bundle.js",
-    
+    assetModuleFilename: 'assets/[name][ext]',
     publicPath: '/dist/',
     clean: true
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      favicon: './public/favicon.png'
+      favicon: './src/assets/favicon.png'
     })
   ],
   devServer: {
     port: 4000,
     static: [
-      path.join(__dirname, '/public'),
+      //path.join(__dirname, '/public'),
       path.join(__dirname, '/dist')
     ],
-    //hot: true,
+    hot: true,
     historyApiFallback: true,
   },
   module: {
@@ -47,6 +47,10 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i, 
+        type: 'asset/resource',
       }
     ]
   }

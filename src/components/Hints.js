@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Hints.css";
+import "./styles/Hints.css";
 
 class Hints extends React.Component {
   constructor(props) {
