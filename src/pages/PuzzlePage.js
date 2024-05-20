@@ -20,16 +20,15 @@ function PuzzlePage(props) {
   
   // state 
   const [cells, setCells] = useState(defaultCells);
-  const [puzzleComplete, setPuzzleComplete] = useState(false);
-  console.log(cells);
+  const [puzzleComplete, setPuzzleComplete] = useState(null);
 
   const solution = generatePuzzle(size, seed);  
 
   function navigateToNewPuzzlePage(size, seed) {
     const newUrl = /*'puzzle' +*/ '/' + size + '/' + seed
-    props.navigation(newUrl)
+    props.navigation(newUrl);
     setCells(generateDefaultCells(size));
-    setPuzzleComplete(false);  // use null instead of false initially to correspond to no message displayed?
+    setPuzzleComplete(null);  // use null instead of false initially to correspond to no message displayed?
   }
     
   return (

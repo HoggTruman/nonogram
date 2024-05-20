@@ -8,8 +8,10 @@ class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      statusMessage: ""
+    this.statusMessage = {
+      null: "",
+      false: "The puzzle is incomplete / there are errors",
+      true: "Congratulations! You have solved the puzzle",
     };
   }
 
@@ -21,23 +23,14 @@ class PuzzleMenu extends React.Component {
       if (this.props.puzzleComplete) {
         return;
       }
-      
-      if (checkPuzzle(this.props.cells, this.props.solution)) {
-        this.props.setPuzzleComplete(true);
-        this.setState({statusMessage: "Congratulations! You have solved the puzzle"});
-      }
-      else {
-        /* it would be good to differentiate between the puzzle being incomplete and incorrect here
-        but this can't be done reliably unless the solution is unique */
-        this.setState({statusMessage: "The puzzle is incomplete / there are errors"});
-      }
+      const puzzleComplete = checkPuzzle(this.props.cells, this.props.solution);
+      this.props.setPuzzleComplete(puzzleComplete);
     })
 
     restartButton.addEventListener("click", () => {
       if (confirm("Are you sure you want to restart the puzzle?")) {
         this.props.setCells(this.props.defaultCells);
-        this.props.setPuzzleComplete(false);
-        this.setState({statusMessage: ""});
+        this.props.setPuzzleComplete(null);
       }
     })
   }
@@ -55,7 +48,7 @@ class PuzzleMenu extends React.Component {
           id="status-message"
           className={this.props.puzzleComplete? "complete": "incomplete"}
         >
-          {this.state.statusMessage}
+          {this.statusMessage[this.props.puzzleComplete]}
         </div>
       </div>   
     )
