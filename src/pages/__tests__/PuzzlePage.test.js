@@ -29,11 +29,21 @@ jest.mock('react-router', () => ({
 }));
 
 
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn()
+}));
+
+
+
 const generateDefaultCells = jest.requireActual('../../utility/generateDefaultCells');
 let spy_generateDefaultCells;
 
 const generatePuzzle = jest.requireActual('../../utility/generatePuzzle');
 let spy_generatePuzzle;
+
+
 
 
 
