@@ -1,7 +1,25 @@
+#puzzle-menu {
+  background-color: brown;
+}
+
+#puzzle-menu > p#puzzle-info {
+  text-align: center;
+}
+
 #status-message.complete {
   color: green;
 }
 
 #status-message.incomplete {
   color: red;
+}
+
+#puzzle-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto;
+} 
+
+#puzzle-buttons > button {
+  margin: 0 0.5rem;
 }

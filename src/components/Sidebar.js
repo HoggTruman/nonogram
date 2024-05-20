@@ -3,6 +3,7 @@ import { BOARD_SIZES } from "../utility/constants";
 
 import "./styles/Sidebar.css";
 import logo from "../assets/logo.jpg";
+import { getRandomSeed } from "../utility/puzzleUtility";
 
 
 
@@ -17,11 +18,13 @@ class Sidebar extends React.Component {
     generatePuzzleButton.addEventListener('click', event => {
       event.preventDefault();
 
-      const formData = new FormData(document.getElementById("puzzle-form")); 
-      const size = formData.get('puzzle-size');
-      const seed = formData.get('seed') || Math.floor(Math.random() * 1000000000);
-      
-      this.props.navigateToNewPuzzlePage(size, seed)
+      if (this.props.puzzleComplete || confirm("Are you sure you want to start a new puzzle?")) {
+        const formData = new FormData(document.getElementById("puzzle-form")); 
+        const size = formData.get('puzzle-size');
+        const seed = formData.get('seed') || getRandomSeed();
+        
+        this.props.navigateToNewPuzzlePage(size, seed)
+      }
     })
   }
   
