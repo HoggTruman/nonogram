@@ -15,19 +15,29 @@ class Board extends React.Component {
     this.handleMouseOver = this.handleMouseOver.bind(this);
   }
 
-
   componentDidMount() {
     const cellElements = document.querySelectorAll('.cell');
 
     cellElements.forEach(cell => {
       cell.addEventListener("mousedown", this.handleMouseDown)
       cell.addEventListener("mouseover", this.handleMouseOver)    
-    })
+    });
 
     document.addEventListener("mouseup", () => {
-        this.cursorCellState = null;    
-    })
+      this.cursorCellState = null;    
+    });
   }
+
+
+  componentDidUpdate() {
+    const cellElements = document.querySelectorAll('.cell');
+
+    cellElements.forEach(cell => {
+      cell.addEventListener("mousedown", this.handleMouseDown)
+      cell.addEventListener("mouseover", this.handleMouseOver)    
+    });
+  }
+  
   
   handleMouseDown(event) {
     if (this.props.puzzleComplete) { return; }
