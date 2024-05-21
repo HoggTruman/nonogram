@@ -26,6 +26,15 @@ class Sidebar extends React.Component {
         this.props.navigateToNewPuzzlePage(size, seed)
       }
     })
+
+
+    const rulesButton = document.getElementById("rules-button")
+    
+    rulesButton.addEventListener("click", () => {
+      const rulesScreen = document.getElementById("rules-screen");
+
+      rulesScreen.classList.toggle("hidden");
+    })
   }
   
 
@@ -81,7 +90,7 @@ class Sidebar extends React.Component {
 
         <input
             type="button"
-            id="how-to-play"
+            id="rules-button"
             value="How to play"
         />
 

@@ -9,6 +9,7 @@ import SideBar from "../components/SideBar";
 import WithNavigateHook from "../components/WithNavigateHook";
 
 import "./styles/PuzzlePage.css";
+import Rules from "../components/Rules";
 
 
 
@@ -63,6 +64,8 @@ function PuzzlePage(props) {
           />
         </div>
       </main>
+      
+      <Rules/>
       
     </>
   )
