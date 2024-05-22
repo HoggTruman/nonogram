@@ -28,7 +28,7 @@ function PuzzlePage(props) {
   const solution = generatePuzzle(size, seed);  
 
   function navigateToNewPuzzlePage(size, seed) {
-    const newUrl = /*'puzzle' +*/ '/' + size + '/' + seed
+    const newUrl = `/puzzle/${size}/${seed}`;
     props.navigation(newUrl);
     setCells(generateDefaultCells(size));
     setPuzzleComplete(null); 

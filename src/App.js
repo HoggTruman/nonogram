@@ -15,7 +15,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={ <HomePage /> } />
-          <Route path="/:size/:seed" element={ <PuzzlePage /> } />
+          <Route path="/puzzle/:size/:seed" element={ <PuzzlePage /> } />
         </Routes>
       </BrowserRouter>
     )

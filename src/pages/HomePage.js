@@ -1,7 +1,6 @@
 'use strict'
 
 import React from "react";
-import { Link } from "react-router-dom";
 //import "./styles/HomePage.css";
 import WithNavigateHook from "../components/WithNavigateHook";
 
@@ -16,8 +15,10 @@ class HomePage extends React.Component {
     formSubmit.addEventListener("click", event => {
       event.preventDefault();
       const formData = new FormData(document.getElementById("puzzle-form")); 
+      const size = formData.get('puzzle-size');
       const seed = formData.get('seed') || 0;
-      const nextUrl = formData.get('puzzle-size') + '/' + seed;
+
+      const nextUrl = `/puzzle/${size}/${seed}`;
       
       this.props.navigation(nextUrl);
     })
