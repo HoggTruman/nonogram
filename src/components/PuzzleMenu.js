@@ -53,24 +53,32 @@ class PuzzleMenu extends React.Component {
           {`${this.props.size} x ${this.props.size} Puzzle (seed: ${this.props.seed})` }
         </p>
 
-        <div id="puzzle-buttons">
-          <button id="btn-check-puzzle">
-            Check Puzzle
-          </button>
-          <button id="btn-restart-puzzle">
-            Restart Puzzle
-          </button>
-          <button id="btn-new-puzzle">
-            New Puzzle
-          </button>
-        </div>
-
         <div 
           id="status-message"
           className={this.props.puzzleComplete? "complete": "incomplete"}
         >
           {this.statusMessage[this.props.puzzleComplete]}
         </div>
+
+        <div id="puzzle-buttons">
+          <input
+            type="button"
+            id="btn-check-puzzle"
+            value="Check Puzzle"
+          />
+          <input
+            type="button"
+            id="btn-restart-puzzle"
+            value="Restart Puzzle"
+          />
+          <input 
+            type="button"
+            id="btn-new-puzzle"
+            value="New Puzzle"
+          />
+        </div>
+
+
       </div>   
     )
   }

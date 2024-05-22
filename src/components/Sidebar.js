@@ -1,9 +1,12 @@
 import React from "react";
 import { BOARD_SIZES } from "../utility/constants";
+import { getRandomSeed } from "../utility/puzzleUtility";
 
 import "./styles/Sidebar.css";
 import logo from "../assets/logo.jpg";
-import { getRandomSeed } from "../utility/puzzleUtility";
+import title from "../assets/title.png";
+
+
 
 
 
@@ -29,7 +32,7 @@ class Sidebar extends React.Component {
 
 
     const rulesButton = document.getElementById("rules-button")
-    
+
     rulesButton.addEventListener("click", () => {
       const rulesScreen = document.getElementById("rules-screen");
 
@@ -64,9 +67,20 @@ class Sidebar extends React.Component {
     return (
       <div id="sidebar">
         <img src={logo} id="logo" alt="logo" title="Go to Homepage" />
+        <img src={title} id="sidebar-title" alt="title" title="NONOGRAM" />
 
         <hr className="thick"/>
-        <h2>New Puzzle</h2>
+        <h3>How to play</h3>
+        <hr className="thick"/>
+
+        <input
+            type="button"
+            id="rules-button"
+            value="Show Rules"
+        />
+
+        <hr className="thick"/>
+        <h3>New Puzzle</h3>
         <hr className="thick"/>
 
         <form id="puzzle-form">
@@ -85,14 +99,7 @@ class Sidebar extends React.Component {
             value="Generate Puzzle"
           />
         </form>
-
         <hr className="thick"/>
-
-        <input
-            type="button"
-            id="rules-button"
-            value="How to play"
-        />
 
       </div>
     )

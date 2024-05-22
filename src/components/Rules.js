@@ -28,7 +28,7 @@ class Rules extends React.Component {
     return (
       <div 
         id="rules-screen"
-        class="hidden"
+        className="hidden"
       >
         <div
           id="rules"
@@ -50,7 +50,7 @@ class Rules extends React.Component {
             To fill or cross multiple squares at a time you can click and drag.
           </p>
 
-          <input type="button" id="close-rules-button" value="Close" />
+          <input type="button" id="close-rules-button" value="Hide Rules" />
         </div>
       </div>
     )

@@ -15,9 +15,7 @@ main {
 }
 
 #puzzle-area {
-  background-color: aquamarine;
-  border: 2px solid black;
   width: max-content;
-  padding: 3rem;
-  margin: 0 auto;
+  margin: 2rem auto;
+  padding: 2rem;
 }
