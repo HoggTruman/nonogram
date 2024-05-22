@@ -12,9 +12,17 @@
   margin: 2% 2%;
 }
 
-#sidebar > h2 {
+#sidebar > #sidebar-title {
+  width: 96%;
+  margin: 0.5rem 2% 0.5rem 2%;
+}
+
+
+
+#sidebar > h3 {
   margin: 0 auto;
   text-align: center;
+  font-weight: bold;
 }
 
 #sidebar > hr {
@@ -29,7 +37,7 @@
 
 #size-buttons {
   width: 80%;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .size-button {
@@ -73,7 +81,7 @@ box-shadow: inset 0 0 0 2px white;
   margin: 0.5rem auto;
 }
 
-#enter-seed > input[type=number] {
+#enter-seed > #seed {
   display: block;
   box-shadow: none !important;
   width: 80%;
@@ -81,8 +89,14 @@ box-shadow: inset 0 0 0 2px white;
   
 }
 
-#puzzle-form > input#generate-from-seed, #how-to-play {
+#puzzle-form > input#generate-from-seed, #rules-button {
   display: block;
   width: 80%;
   margin: 1rem auto;
+}
+
+#rules-button {
+  display: block;
+  width: 80%;
+  margin: 1.5rem auto;
 }

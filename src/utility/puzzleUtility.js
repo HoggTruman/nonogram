@@ -1,4 +1,4 @@
-import { CELL_STATE } from "./constants";
+import { CELL_STATE, MAX_SEED } from "./constants";
 
 /**
  * A helper function to get the transpose of a 2D-array
@@ -62,7 +62,7 @@ export function getNumBlockGroups(rowOrCol) {
  * @returns A random seed integer
  */
 export function getRandomSeed() {
-  return Math.floor(Math.random() * 1000000000);
+  return Math.floor(Math.random() * (MAX_SEED + 1));
 }
 
 

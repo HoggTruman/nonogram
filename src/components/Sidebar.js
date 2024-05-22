@@ -1,9 +1,12 @@
 import React from "react";
-import { BOARD_SIZES } from "../utility/constants";
+import { BOARD_SIZES, MAX_SEED, MIN_SEED } from "../utility/constants";
+import { getRandomSeed } from "../utility/puzzleUtility";
 
 import "./styles/Sidebar.css";
 import logo from "../assets/logo.jpg";
-import { getRandomSeed } from "../utility/puzzleUtility";
+import title from "../assets/title.png";
+
+
 
 
 
@@ -18,13 +21,26 @@ class Sidebar extends React.Component {
     generatePuzzleButton.addEventListener('click', event => {
       event.preventDefault();
 
-      if (this.props.puzzleComplete || confirm("Are you sure you want to start a new puzzle?")) {
-        const formData = new FormData(document.getElementById("puzzle-form")); 
-        const size = formData.get('puzzle-size');
-        const seed = formData.get('seed') || getRandomSeed();
-        
+      const formData = new FormData(document.getElementById("puzzle-form")); 
+      const size = formData.get('puzzle-size');
+      const seed = formData.get('seed') === ""? getRandomSeed(): Number(formData.get('seed'));
+  
+      
+      if (Number.isInteger(seed) === false || seed < MIN_SEED || seed > MAX_SEED) {
+        alert("The seed must be a non-negative integer (max 9 digits)");
+      }
+      else if (this.props.puzzleComplete || confirm("Are you sure you want to start a new puzzle?")) {        
         this.props.navigateToNewPuzzlePage(size, seed)
       }
+    })
+
+
+    const rulesButton = document.getElementById("rules-button")
+
+    rulesButton.addEventListener("click", () => {
+      const rulesScreen = document.getElementById("rules-screen");
+
+      rulesScreen.classList.toggle("hidden");
     })
   }
   
@@ -55,9 +71,20 @@ class Sidebar extends React.Component {
     return (
       <div id="sidebar">
         <img src={logo} id="logo" alt="logo" title="Go to Homepage" />
+        <img src={title} id="sidebar-title" alt="title" title="NONOGRAM" />
 
         <hr className="thick"/>
-        <h2>New Puzzle</h2>
+        <h3>How to play</h3>
+        <hr className="thick"/>
+
+        <input
+            type="button"
+            id="rules-button"
+            value="Show Rules"
+        />
+
+        <hr className="thick"/>
+        <h3>New Puzzle</h3>
         <hr className="thick"/>
 
         <form id="puzzle-form">
@@ -66,8 +93,15 @@ class Sidebar extends React.Component {
           </div>
 
           <div id="enter-seed">
-            <label htmlFor="seed">Enter seed (or leave blank for random):</label>
-            <input type="number" id="seed" name="seed" />
+            <label htmlFor="seed">
+              {"Enter seed (or leave blank for random):"}
+            </label>
+            <input 
+              type="text" 
+              id="seed" 
+              name="seed"
+              pattern="\d*"
+            />
           </div>
 
           <input
@@ -76,14 +110,7 @@ class Sidebar extends React.Component {
             value="Generate Puzzle"
           />
         </form>
-
         <hr className="thick"/>
-
-        <input
-            type="button"
-            id="how-to-play"
-            value="How to play"
-        />
 
       </div>
     )

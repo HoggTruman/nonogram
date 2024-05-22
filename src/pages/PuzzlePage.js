@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 
 import Puzzle from "../components/Puzzle";
 import PuzzleMenu from "../components/PuzzleMenu";
-import generatePuzzle from "../utility/generatePuzzle";
-import generateDefaultCells from "../utility/generateDefaultCells";
-import SideBar from "../components/SideBar";
+import Sidebar from "../components/Sidebar";
 import WithNavigateHook from "../components/WithNavigateHook";
 
+import generatePuzzle from "../utility/generatePuzzle";
+import generateDefaultCells from "../utility/generateDefaultCells";
+
+
 import "./styles/PuzzlePage.css";
+import Rules from "../components/Rules";
 
 
 
@@ -33,14 +36,12 @@ function PuzzlePage(props) {
     
   return (
     <>
-      <SideBar
+      <Sidebar
         size={size}
         navigateToNewPuzzlePage={navigateToNewPuzzlePage}
         puzzleComplete={puzzleComplete}
       />
       <main>
-        <h1>Size: {size}</h1>
-        <h1>Seed: {seed}</h1>
         <div id="puzzle-area">
           <Puzzle 
             size={size}
@@ -63,6 +64,8 @@ function PuzzlePage(props) {
           />
         </div>
       </main>
+
+      <Rules/>
       
     </>
   )
