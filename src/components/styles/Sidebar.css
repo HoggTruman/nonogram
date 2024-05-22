@@ -81,7 +81,7 @@ box-shadow: inset 0 0 0 2px white;
   margin: 0.5rem auto;
 }
 
-#enter-seed > input[type=number] {
+#enter-seed > #seed {
   display: block;
   box-shadow: none !important;
   width: 80%;
