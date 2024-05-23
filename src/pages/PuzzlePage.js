@@ -12,37 +12,57 @@ import generateDefaultCells from "../utility/generateDefaultCells";
 
 import "./styles/PuzzlePage.css";
 import Rules from "../components/Rules";
+import { BOARD_SIZES, MIN_SEED, MAX_SEED } from "../utility/constants";
+import InvalidSizeSeedMessage from "../components/InvalidSizeSeedMessage";
 
 
 
 function PuzzlePage(props) {
-  const {size, seed} = useParams();  // should rename to avoid confusion???????????????????????????????????????????????????????????
+  const {size, seed} = useParams();
 
-  // default state
-  const defaultCells = generateDefaultCells(size);
+  const isValidSize = BOARD_SIZES.includes(Number(size));
+  const isValidSeed = Number.isInteger(Number(seed)) && Number(seed) >= MIN_SEED && Number(seed) <= MAX_SEED;
+
+  let defaultCells = [];
+  let solution = [];
+
+  if (isValidSize && isValidSeed) {
+    defaultCells = generateDefaultCells(size);
+    solution = generatePuzzle(size, seed); 
+  }
+
   
   // state 
   const [cells, setCells] = useState(defaultCells);
   const [puzzleComplete, setPuzzleComplete] = useState(null);
 
-  const solution = generatePuzzle(size, seed);  
 
-  function navigateToNewPuzzlePage(size, seed) {
-    const newUrl = `/puzzle/${size}/${seed}`;
+  function navigateToNewPuzzlePage(nextSize, nextSeed) {
+    const newUrl = `/puzzle/${nextSize}/${nextSeed}`;
     props.navigation(newUrl);
-    setCells(generateDefaultCells(size));
+    setCells(generateDefaultCells(nextSize));
     setPuzzleComplete(null); 
   }
     
-  return (
-    <>
-      <Sidebar
+
+
+
+  // RENDERING
+  function invalidSizeSeedRender() {
+    return (
+      <InvalidSizeSeedMessage 
         size={size}
-        navigateToNewPuzzlePage={navigateToNewPuzzlePage}
-        puzzleComplete={puzzleComplete}
+        seed={seed}
+        isValidSize={isValidSize}
+        isValidSeed={isValidSeed}
       />
-      <main>
-        <div id="puzzle-area">
+    )
+  }
+
+
+  function validSizeSeedRender() {
+    return (
+      <div id="puzzle-area">
           <Puzzle 
             size={size}
             seed={seed}
@@ -63,6 +83,20 @@ function PuzzlePage(props) {
             navigateToNewPuzzlePage={navigateToNewPuzzlePage}
           />
         </div>
+    )
+  }
+
+
+  
+  return (
+    <>
+      <Sidebar
+        size={size}
+        navigateToNewPuzzlePage={navigateToNewPuzzlePage}
+        puzzleComplete={puzzleComplete}
+      />
+      <main>
+        {isValidSize && isValidSeed? validSizeSeedRender(): invalidSizeSeedRender()}
       </main>
 
       <Rules/>
