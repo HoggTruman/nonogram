@@ -1,8 +1,17 @@
 'use strict'
 
 import React from "react";
-//import "./styles/HomePage.css";
+
 import WithNavigateHook from "../components/WithNavigateHook";
+import { BOARD_SIZES, MIN_SEED, MAX_SEED } from "../utility/constants";
+import { getRandomSeed } from "../utility/puzzleUtility";
+
+import title from "../assets/homepageTitle.png";
+import "./styles/HomePage.css";
+
+
+
+
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -10,13 +19,34 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    const formSubmit = document.getElementById("submit-btn");
+    const generateFromSeedButton = document.getElementById("generate-from-seed-btn");
     
-    formSubmit.addEventListener("click", event => {
+    generateFromSeedButton.addEventListener("click", event => {
       event.preventDefault();
+
       const formData = new FormData(document.getElementById("puzzle-form")); 
       const size = formData.get('puzzle-size');
-      const seed = formData.get('seed') || 0;
+      const seed = formData.get('seed') === ""? getRandomSeed(): Number(formData.get('seed'));
+
+      
+      if (Number.isInteger(seed) === false || seed < MIN_SEED || seed > MAX_SEED) {
+        alert("The seed must be a non-negative integer (max 9 digits)");
+      }
+      else {     
+        const nextUrl = `/puzzle/${size}/${seed}`;   
+        this.props.navigation(nextUrl);
+      }
+    })
+
+
+    const generateRandomButton = document.getElementById("generate-random-btn");
+
+    generateRandomButton.addEventListener("click", event => {
+      event.preventDefault();
+
+      const formData = new FormData(document.getElementById("puzzle-form")); 
+      const size = formData.get('puzzle-size');
+      const seed = getRandomSeed();
 
       const nextUrl = `/puzzle/${size}/${seed}`;
       
@@ -24,33 +54,65 @@ class HomePage extends React.Component {
     })
   }
 
+
+
   render() {
+    const sizeRadioButtons = BOARD_SIZES.map(boardSize => (
+      <div key={boardSize} className="size-button">
+        <input 
+          type="radio" 
+          className="btn-check" 
+          id={`radio-size-${boardSize}`} 
+          value={boardSize} 
+          name="puzzle-size" 
+          autoComplete="off" 
+          defaultChecked={boardSize === 5}
+        />
+        <label 
+          className="btn" 
+          htmlFor={`radio-size-${boardSize}`} 
+        >
+          {`${boardSize} x ${boardSize}`} 
+        </label>
+      </div>
+    ));
+
+
     return (
-      <>
-        <h1>Nonogram Puzzle</h1>
+      <main id="homepage-main">
+        <img src={title} id="title-img" alt="title-img" title="NONOGRAM" />
+
+        <hr className="thick" />
+        
         <form id="puzzle-form">
-          <input type="radio" className="btn-check" id="5-by-5" value="5" name="puzzle-size" autoComplete="off" defaultChecked />
-          <label className="btn btn-outline-primary" htmlFor="5-by-5">5 x 5</label>
+          <h2>Choose a puzzle size:</h2>
 
-          <input type="radio" className="btn-check" id="10-by-10" value="10" name="puzzle-size" autoComplete="off" />
-          <label className="btn btn-outline-primary" htmlFor="10-by-10">10 x 10</label>
+          <div id="size-buttons">
+            {sizeRadioButtons}
+          </div>
 
-          <input type="radio" className="btn-check" id="15-by-15" value="15" name="puzzle-size" autoComplete="off" />
-          <label className="btn btn-outline-primary" htmlFor="15-by-15">15 x 15</label>
+          <hr className="thick" /> 
+          <h2>{"Generate Puzzle with Random Seed"}</h2>
 
-          <input type="radio" className="btn-check" id="20-by-20" value="20" name="puzzle-size" autoComplete="off" />
-          <label className="btn btn-outline-primary" htmlFor="20-by-20">20 x 20</label>
+          <input type="submit" id="generate-random-btn" value="Generate Random Puzzle" />
 
-          <input type="radio" className="btn-check" id="25-by-25" value="25" name="puzzle-size" autoComplete="off" />
-          <label className="btn btn-outline-primary" htmlFor="25-by-25">25 x 25</label>
+          <p className="divider">OR</p>
 
-          <label htmlFor="seed">Enter a puzzle ID or leave blank for random:</label>
-          <input type="number" id="seed" name="seed" />
+          <h2>{"Generate Puzzle From Seed"/*"Enter a seed: "*/}</h2>
+          <h5>{"(Seed can be any non-negative integer up to 9 digits long)"}</h5>
 
-          <input type="submit" id="submit-btn" value="Generate Puzzle" />
+      
+          <div id="seed-container">
+            <label htmlFor="seed">
+              {"Enter Seed: "}
+            </label>
+            <input type="text" id="seed" name="seed" pattern="\d*"/>
+          </div>
+
+          <input type="submit" id="generate-from-seed-btn" value="Generate Puzzle From Seed" />
           
         </form>
-      </>
+      </main>
     )
   }
 }
