@@ -47,7 +47,7 @@ function PuzzlePage(props) {
 
 
 
-  // RENDERING
+  // Rendering
   function invalidSizeSeedRender() {
     return (
       <InvalidSizeSeedMessage 
@@ -95,7 +95,7 @@ function PuzzlePage(props) {
         navigateToNewPuzzlePage={navigateToNewPuzzlePage}
         puzzleComplete={puzzleComplete}
       />
-      <main>
+      <main id="puzzlepage-main">
         {isValidSize && isValidSeed? validSizeSeedRender(): invalidSizeSeedRender()}
       </main>
 
