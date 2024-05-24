@@ -12,23 +12,25 @@
   text-align: center;
 }
 
-#invalid-size-seed-message > h1 {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-
-#invalid-size-seed-message > h3 {
-  margin: 1rem auto 0.5rem auto;
-}
-
-#invalid-size-seed-message > p {
-  margin: 0.5rem auto;
-  font-style: italic;
-}
-
-#invalid-size-seed-message > h3 > span {
-  color: red;
-  font-weight: bold;
-  word-break: break-all;
+#invalid-size-seed-message {
+  & h1 {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  & h3 {
+    margin: 1rem auto 0.5rem auto;
+  }
+  
+  & p {
+    margin: 0.5rem auto;
+    font-style: italic;
+  }
+  
+  & h3 > span {
+    color: red;
+    font-weight: bold;
+    word-break: break-all;
+  }
 }
