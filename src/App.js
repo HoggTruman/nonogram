@@ -3,6 +3,8 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import PuzzlePage from "./pages/PuzzlePage.js";
 
+import "./App.css";
+
 
 
 class App extends React.Component {
