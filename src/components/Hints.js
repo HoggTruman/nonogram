@@ -2,6 +2,9 @@ import React from "react";
 
 import "./styles/Hints.css";
 
+
+
+
 class Hints extends React.Component {
   constructor(props) {
     super(props)
@@ -49,5 +52,7 @@ class Hints extends React.Component {
     )
   }
 }
+
+
 
 export default Hints;

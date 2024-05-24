@@ -3,6 +3,8 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import PuzzlePage from "./pages/PuzzlePage.js";
 
+import "./App.css";
+
 
 
 class App extends React.Component {
@@ -15,7 +17,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={ <HomePage /> } />
-          <Route path="/:size/:seed" element={ <PuzzlePage /> } />
+          <Route path="/puzzle/:size/:seed" element={ <PuzzlePage /> } />
         </Routes>
       </BrowserRouter>
     )

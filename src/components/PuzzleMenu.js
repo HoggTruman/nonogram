@@ -1,8 +1,13 @@
 import React from "react";
 
 import checkPuzzle from "../utility/checkPuzzle";
-import "./styles/PuzzleMenu.css";
 import { getRandomSeed } from "../utility/puzzleUtility";
+
+
+import "./styles/PuzzleMenu.css";
+
+
+
 
 
 class PuzzleMenu extends React.Component {
@@ -74,7 +79,7 @@ class PuzzleMenu extends React.Component {
           <input 
             type="button"
             id="btn-new-puzzle"
-            value="New Puzzle"
+            value={`New Puzzle (${this.props.size} x ${this.props.size})`}
           />
         </div>
 

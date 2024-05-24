@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { BOARD_SIZES, MAX_SEED, MIN_SEED } from "../utility/constants";
 import { getRandomSeed } from "../utility/puzzleUtility";
 
 import "./styles/Sidebar.css";
 import logo from "../assets/logo.jpg";
-import title from "../assets/title.png";
+import title from "../assets/sidebarTitle.png";
+
 
 
 
@@ -15,8 +18,9 @@ class Sidebar extends React.Component {
     super(props);
   }
 
+
   componentDidMount() {
-    const generatePuzzleButton = document.getElementById("generate-from-seed");
+    const generatePuzzleButton = document.getElementById("generate-from-seed-btn");
 
     generatePuzzleButton.addEventListener('click', event => {
       event.preventDefault();
@@ -32,14 +36,14 @@ class Sidebar extends React.Component {
       else if (this.props.puzzleComplete || confirm("Are you sure you want to start a new puzzle?")) {        
         this.props.navigateToNewPuzzlePage(size, seed)
       }
-    })
+    });
 
+    
 
-    const rulesButton = document.getElementById("rules-button")
+    const rulesButton = document.getElementById("rules-button");
 
     rulesButton.addEventListener("click", () => {
       const rulesScreen = document.getElementById("rules-screen");
-
       rulesScreen.classList.toggle("hidden");
     })
   }
@@ -47,31 +51,34 @@ class Sidebar extends React.Component {
 
 
   render() {
-    const sizeRadioButtons = BOARD_SIZES.map(BOARD_SIZE => (
-      <div key={BOARD_SIZE} className="size-button">
+    const sizeRadioButtons = BOARD_SIZES.map(boardSize => (
+      <div key={boardSize} className="size-button">
         <input 
           type="radio" 
           className="btn-check" 
-          id={`radio-size-${BOARD_SIZE}`} 
-          value={BOARD_SIZE} 
+          id={`radio-size-${boardSize}`} 
+          value={boardSize} 
           name="puzzle-size" 
           autoComplete="off" 
-          defaultChecked={Number(this.props.size) === BOARD_SIZE}
+          defaultChecked={boardSize === Number(this.props.size)}
         />
         <label 
           className="btn" 
-          htmlFor={`radio-size-${BOARD_SIZE}`} 
+          htmlFor={`radio-size-${boardSize}`} 
         >
-          {`${BOARD_SIZE} x ${BOARD_SIZE}`} 
+          {`${boardSize} x ${boardSize}`} 
         </label>
       </div>
-    ))
+    ));
 
 
     return (
       <div id="sidebar">
-        <img src={logo} id="logo" alt="logo" title="Go to Homepage" />
-        <img src={title} id="sidebar-title" alt="title" title="NONOGRAM" />
+        <Link to ="/">
+        <img src={logo} id="logo" alt="logo" title="Go to homepage" />
+        </Link>
+        
+        <img src={title} id="title-img" alt="title" title="NONOGRAM" />
 
         <hr className="thick"/>
         <h3>How to play</h3>
@@ -106,7 +113,7 @@ class Sidebar extends React.Component {
 
           <input
             type="submit"
-            id="generate-from-seed"
+            id="generate-from-seed-btn"
             value="Generate Puzzle"
           />
         </form>
@@ -115,7 +122,8 @@ class Sidebar extends React.Component {
       </div>
     )
   }
-
 }
+
+
 
 export default Sidebar;

@@ -1,20 +1,11 @@
-body {
-  height: 100lvh; 
-  background-image: url("../../assets/bg.png");
-  background-color: rgba(0,0,0,0.2);
-  background-blend-mode: lighten;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-main {
+main#puzzlepage-main {
   position: absolute;
   left: 10%;
   width: 90%;
   height: 100%;
 }
 
-#puzzle-area {
+main#puzzlepage-main > #puzzle-area {
   width: max-content;
   margin: 2rem auto;
   padding: 2rem;

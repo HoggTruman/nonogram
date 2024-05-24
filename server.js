@@ -7,8 +7,7 @@ const app = express();
 // middleware 
 app.use('/js', express.static(process.cwd() + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS // THESE SHOULD BE IN WEBPACK IF WANT TO USE THEM UNDER resolve: alias
 app.use('/css', express.static(process.cwd() + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-app.use('/scripts', express.static(process.cwd() + '/scripts'));
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/assets', express.static(process.cwd() + '/dist/assets'));
 
 // EITHER USE FIRST WITH JUST '/' as publicPath or second with '/dist/'
 // app.use(express.static(__dirname + '/dist'));
@@ -18,7 +17,7 @@ app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/dist/index.html');
 })
 
-app.get('/:size/:seed', (req, res) => {
+app.get('/puzzle/:size/:seed', (req, res) => {
   res.sendFile(process.cwd() + '/dist/index.html')
 })
 
