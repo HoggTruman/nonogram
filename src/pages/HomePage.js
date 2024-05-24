@@ -1,5 +1,3 @@
-'use strict'
-
 import React from "react";
 
 import WithNavigateHook from "../components/WithNavigateHook";
@@ -98,7 +96,7 @@ class HomePage extends React.Component {
 
           <p className="divider">OR</p>
 
-          <h2>{"Generate Puzzle From Seed"/*"Enter a seed: "*/}</h2>
+          <h2>{"Generate Puzzle From Seed"}</h2>
           <h5>{"(Seed can be any non-negative integer up to 9 digits long)"}</h5>
 
       

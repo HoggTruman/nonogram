@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.js";
 import PuzzlePage from "./pages/PuzzlePage.js";
 
 import "./App.css";
+import NotFoundPage from "./pages/NotFoundPage.js";
 
 
 
@@ -18,6 +19,7 @@ class App extends React.Component {
         <Routes>
           <Route exact path="/" element={ <HomePage /> } />
           <Route path="/puzzle/:size/:seed" element={ <PuzzlePage /> } />
+          <Route path="*" element={ <NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     )

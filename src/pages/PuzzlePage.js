@@ -5,22 +5,24 @@ import Puzzle from "../components/Puzzle";
 import PuzzleMenu from "../components/PuzzleMenu";
 import Sidebar from "../components/Sidebar";
 import WithNavigateHook from "../components/WithNavigateHook";
+import InvalidSizeSeedMessage from "../components/InvalidSizeSeedMessage";
 
+import { BOARD_SIZES, MIN_SEED, MAX_SEED } from "../utility/constants";
 import generatePuzzle from "../utility/generatePuzzle";
 import generateDefaultCells from "../utility/generateDefaultCells";
 
-
 import "./styles/PuzzlePage.css";
 import Rules from "../components/Rules";
-import { BOARD_SIZES, MIN_SEED, MAX_SEED } from "../utility/constants";
-import InvalidSizeSeedMessage from "../components/InvalidSizeSeedMessage";
+
+
+
 
 
 
 function PuzzlePage(props) {
   const {size, seed} = useParams();
 
-  const isValidSize = BOARD_SIZES.includes(Number(size));
+  const isValidSize = Number(size).toString() === size && BOARD_SIZES.includes(Number(size));
   const isValidSeed = Number.isInteger(Number(seed)) && Number(seed) >= MIN_SEED && Number(seed) <= MAX_SEED;
 
   let defaultCells = [];
@@ -94,6 +96,8 @@ function PuzzlePage(props) {
         size={size}
         navigateToNewPuzzlePage={navigateToNewPuzzlePage}
         puzzleComplete={puzzleComplete}
+        isValidSize={isValidSize}
+        isValidSeed={isValidSeed}
       />
       <main id="puzzlepage-main">
         {isValidSize && isValidSeed? validSizeSeedRender(): invalidSizeSeedRender()}

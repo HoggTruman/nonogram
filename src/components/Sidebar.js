@@ -26,15 +26,20 @@ class Sidebar extends React.Component {
       event.preventDefault();
 
       const formData = new FormData(document.getElementById("puzzle-form")); 
-      const size = formData.get('puzzle-size');
-      const seed = formData.get('seed') === ""? getRandomSeed(): Number(formData.get('seed'));
+      const newSize = formData.get('puzzle-size');
+      const newSeed = formData.get('seed') === ""? getRandomSeed(): Number(formData.get('seed'));
   
       
-      if (Number.isInteger(seed) === false || seed < MIN_SEED || seed > MAX_SEED) {
+      if (Number.isInteger(newSeed) === false || newSeed < MIN_SEED || newSeed > MAX_SEED) {
         alert("The seed must be a non-negative integer (max 9 digits)");
       }
-      else if (this.props.puzzleComplete || confirm("Are you sure you want to start a new puzzle?")) {        
-        this.props.navigateToNewPuzzlePage(size, seed)
+      else if (
+        this.props.puzzleComplete || 
+        this.props.isValidSize === false || 
+        this.props.isValidSeed === false ||
+        confirm("Are you sure you want to start a new puzzle?")
+      ) {        
+        this.props.navigateToNewPuzzlePage(newSize, newSeed)
       }
     });
 
@@ -60,7 +65,7 @@ class Sidebar extends React.Component {
           value={boardSize} 
           name="puzzle-size" 
           autoComplete="off" 
-          defaultChecked={boardSize === Number(this.props.size)}
+          defaultChecked={this.props.isValidSize? boardSize.toString() === this.props.size: boardSize === 5}
         />
         <label 
           className="btn" 
