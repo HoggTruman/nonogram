@@ -2,9 +2,11 @@ import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import PuzzlePage from "./pages/PuzzlePage.js";
-
-import "./App.css";
 import NotFoundPage from "./pages/NotFoundPage.js";
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "./App.css";
+
 
 
 

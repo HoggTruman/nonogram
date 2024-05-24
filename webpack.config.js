@@ -20,7 +20,6 @@ module.exports = {
   devServer: {
     port: 4000,
     static: [
-      //path.join(__dirname, '/public'),
       path.join(__dirname, '/dist')
     ],
     hot: true,
