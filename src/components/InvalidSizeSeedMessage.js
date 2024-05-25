@@ -8,6 +8,7 @@ import "./styles/InvalidSizeSeedMessage.css";
 function InvalidSizeSeedMessage({size, seed, isValidSize, isValidSeed}) {
   let sizeMarkup = null;
   let seedMarkup = null;
+  let leadingZerosMarkup = null;
 
   function clean(str) {
     const MAX_STR_LENGTH = 15;
@@ -20,6 +21,7 @@ function InvalidSizeSeedMessage({size, seed, isValidSize, isValidSeed}) {
   }
   
 
+
   if (isValidSize === false) {
     sizeMarkup = (
       <>
@@ -28,6 +30,7 @@ function InvalidSizeSeedMessage({size, seed, isValidSize, isValidSeed}) {
       </>
     );
   }
+
 
   if (isValidSeed === false) {
     seedMarkup = (
@@ -38,11 +41,28 @@ function InvalidSizeSeedMessage({size, seed, isValidSize, isValidSeed}) {
     );
   }
 
+
+  if (
+    (isNaN(Number(size)) === false && Number(size).toString() !== size) || 
+    (isNaN(Number(seed)) === false && Number(seed).toString() !== seed)
+  ) {
+    leadingZerosMarkup = (
+      <b>
+        {"Please remove leading zeros"}
+      </b>    
+    )
+  }
+
+
+
+
   return (
     <div id="invalid-size-seed-message">
       <h1>ERROR</h1>
+      {leadingZerosMarkup}
       {sizeMarkup}
       {seedMarkup}
+      
     </div>
   )
 }
