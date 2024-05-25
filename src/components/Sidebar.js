@@ -79,8 +79,8 @@ class Sidebar extends React.Component {
 
     return (
       <div id="sidebar">
-        <Link to ="/">
-        <img src={logo} id="logo" alt="logo" title="Go to homepage" />
+        <Link to="/">
+          <img src={logo} id="logo" alt="logo" title="Go to homepage" />
         </Link>
         
         <img src={title} id="title-img" alt="title" title="NONOGRAM" />
