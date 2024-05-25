@@ -1,17 +1,18 @@
 {
   "name": "nonogram",
-  "version": "1.0.0",
   "description": "A nonogram web app",
-  "main": "server.js",
+  "author": "Truman Hogg",
+  "homepage": "https://github.com/HoggTruman/nonogram",
+  "engines": {
+    "npm": ">=10.8.0",
+    "node": ">=20.12.2"
+  },
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "test": "jest",
     "build": "webpack",
-    "clear_jest": "jest --clearCache",
     "server": "node --watch server.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.3",
     "express": "^4.19.2",

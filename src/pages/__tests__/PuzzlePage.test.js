@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import {render, fireEvent, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 
 // fix for structuredClone in jsdom
@@ -10,6 +10,8 @@ global.structuredClone = structuredClone;
 
 
 
+
+// src imports 
 import PuzzlePage from '../PuzzlePage';
 import { create2DArray } from '../../utility/puzzleUtility';
 import { BOARD_SIZES, CELL_STATE, CELL_STATE_CLASSES } from '../../utility/constants';
@@ -21,8 +23,12 @@ const {
 
 
 
+
+
+
  // mocks
 import { useParams } from 'react-router';
+
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useParams: jest.fn().mockName('mockUseParams')
@@ -32,7 +38,8 @@ jest.mock('react-router', () => ({
 
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn()
+  useNavigate: jest.fn(),
+  Link: jest.fn(() => <div></div>)
 }));
 
 
@@ -76,10 +83,12 @@ const PUZZLE_INCOMPLETE_TEXT = "The puzzle is incomplete / there are errors";
 
 
 
+
+
 describe("Puzzle Board tests", () => {
   describe("Correct initialisation", () => {
     test.each(BOARD_SIZES)("Correct # of cells and initialised to BLANK (size: %i)", size => {
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size.toString(), seed: "0"});
       spy_generateDefaultCells.mockRestore(); /// mock restore is completely resetting the spyon, need to spyon before each test I think!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       spy_generatePuzzle.mockRestore();
       
@@ -102,13 +111,14 @@ describe("Puzzle Board tests", () => {
 
   describe("Single click tests:", () => {
     // test suite mocks
-    const size = 5;
+    const size = "5";
+    const seed = "0"
     const solution = create2DArray(size, CELL_STATE.BLANK);
 
 
     beforeEach(() => {
       // Note: seed isn't used to generate the puzzle since generatePuzzle is mocked
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: seed});
       spy_generatePuzzle.mockReturnValue(solution);
     })
 
@@ -246,12 +256,13 @@ describe("Puzzle Board tests", () => {
 
   describe("Click and drag tests", () => {
     // test suite mocks
-    const size = 5;
+    const size = "5";
+    const seed = "0"
     const solution = create2DArray(size, CELL_STATE.BLANK);
 
     beforeEach(() => {
       // Note: seed isn't used to generate the puzzle since generatePuzzle is mocked
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: seed});
       spy_generatePuzzle.mockReturnValue(solution);      
     })
 
@@ -470,12 +481,13 @@ describe("Puzzle Board tests", () => {
 
   describe("Simultaneous click tests", () => {
     // test suite mocks
-    const size = 5;
+    const size = "5";
+    const seed = "0"
     const solution = create2DArray(size, CELL_STATE.BLANK);
 
     beforeEach(() => {
       // Note: seed isn't used to generate the puzzle since generatePuzzle is mocked
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: seed});
       spy_generatePuzzle.mockReturnValue(solution);
     })
 
@@ -646,7 +658,8 @@ describe("Puzzle Board tests", () => {
 
 
   describe("Click behaviour after checkButton clicked", () => {
-    const size = 5;
+    const size = "5";
+    const seed= "0"
     const solution = [
       [b, f, f, b, f],
       [f, b, b, b, f],
@@ -656,7 +669,7 @@ describe("Puzzle Board tests", () => {
     ];
 
     beforeEach(() => {
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: seed});
       spy_generatePuzzle.mockReturnValue(solution);
     });
 
@@ -720,10 +733,11 @@ describe("Puzzle Board tests", () => {
 
 
   describe("Restart button tests", () => {
-    const size = 5;
+    const size = "5";
+    const seed = "0"
 
     beforeEach(() => {
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: "0"});
     })
     
 
@@ -811,10 +825,11 @@ describe("Puzzle Board tests", () => {
 
 
   describe("Check Button tests", () => {
-    const size = 5;
+    const size = "5";
+    const seed = "0"
 
     beforeEach(() => {
-      useParams.mockReturnValue({size: size, seed: 0});
+      useParams.mockReturnValue({size: size, seed: seed});
     })
   
 
