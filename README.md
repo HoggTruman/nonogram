@@ -13,8 +13,9 @@ A web app for playing Nonograms - Japanese Sudoku-like logic puzzles
 
 ## Installation and Local Usage
 ### Prerequisites:
-- node version 20+ (*v20.12.2 was used in development*)
-- npm version 10+ (*v10.8.0" was used in development*)
+- node version 20
+- npm version 10
+*note: other versions may work but have not been tested*
 
 ### Setup
 - Run `npm install`
