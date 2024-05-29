@@ -19,7 +19,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/nonogram/" element={ <HomePage /> } />
+          <Route path="/nonogram/" element={ <HomePage /> } />
           <Route path="/nonogram/puzzle/:size/:seed" element={ <PuzzlePage /> } />
           <Route path="/nonogram/*" element={ <NotFoundPage />} />
         </Routes>
