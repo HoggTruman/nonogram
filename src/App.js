@@ -21,7 +21,7 @@ class App extends React.Component {
         <Routes>
           <Route exact path="/nonogram/" element={ <HomePage /> } />
           <Route path="/nonogram/puzzle/:size/:seed" element={ <PuzzlePage /> } />
-          <Route path="*" element={ <NotFoundPage />} />
+          <Route path="/nonogram/*" element={ <NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     )
