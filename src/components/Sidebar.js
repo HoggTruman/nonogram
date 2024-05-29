@@ -79,7 +79,7 @@ class Sidebar extends React.Component {
 
     return (
       <div id="sidebar">
-        <Link to="/nonogram/">
+        <Link to="/">
           <img src={logo} id="logo" alt="logo" title="Go to homepage" />
         </Link>
         

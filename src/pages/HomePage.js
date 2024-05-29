@@ -31,7 +31,7 @@ class HomePage extends React.Component {
         alert("The seed must be a non-negative integer (max 9 digits)");
       }
       else {     
-        const nextUrl = `/nonogram/puzzle/${size}/${seed}`;   
+        const nextUrl = `/puzzle/${size}/${seed}`;   
         this.props.navigation(nextUrl);
       }
     })
@@ -46,7 +46,7 @@ class HomePage extends React.Component {
       const size = formData.get('puzzle-size');
       const seed = getRandomSeed();
 
-      const nextUrl = `/nonogram/puzzle/${size}/${seed}`;
+      const nextUrl = `/puzzle/${size}/${seed}`;
       
       this.props.navigation(nextUrl);
     })

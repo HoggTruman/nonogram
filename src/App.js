@@ -17,11 +17,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/nonogram">
         <Routes>
-          <Route path="/nonogram/" element={ <HomePage /> } />
-          <Route path="/nonogram/puzzle/:size/:seed" element={ <PuzzlePage /> } />
-          <Route path="/nonogram/*" element={ <NotFoundPage />} />
+          <Route path="/" element={ <HomePage /> } />
+          <Route path="/puzzle/:size/:seed" element={ <PuzzlePage /> } />
+          <Route path="*" element={ <NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     )
