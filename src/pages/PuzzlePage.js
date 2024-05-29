@@ -47,7 +47,7 @@ function PuzzlePage(props) {
 
 
   function navigateToNewPuzzlePage(nextSize, nextSeed) {
-    const newUrl = `/puzzle/${nextSize}/${nextSeed}`;
+    const newUrl = `/nonogram/puzzle/${nextSize}/${nextSeed}`;
     props.navigation(newUrl);
     setCells(generateDefaultCells(nextSize));
     setPuzzleComplete(null); 
