@@ -2,7 +2,7 @@
   "name": "nonogram",
   "description": "A nonogram web app",
   "author": "Truman Hogg",
-  "homepage": "https://github.com/HoggTruman/nonogram",
+  "homepage": "https://hoggtruman.github.io/nonogram/",
   "engines": {
     "npm": ">=10.8.0",
     "node": ">=20.12.2"
