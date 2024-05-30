@@ -19,7 +19,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={ <HomePage /> } />
+          <Route path="/" element={ <HomePage /> } />
           <Route path="/puzzle/:size/:seed" element={ <PuzzlePage /> } />
           <Route path="*" element={ <NotFoundPage />} />
         </Routes>
