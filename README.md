@@ -1,5 +1,5 @@
 # Nonogram Web App
-A web app for playing Nonograms - Japanese Sudoku-like logic puzzles
+A desktop web app for playing Nonograms - Japanese Sudoku-like logic puzzles
 
 ## Features
 - An interactive pseudo-randomly generated Nonogram puzzle
@@ -11,18 +11,30 @@ A web app for playing Nonograms - Japanese Sudoku-like logic puzzles
 - Rules and warnings to guide the player with both gameplay and app usage
 
 
-## Installation and Local Usage
+## Installation and Setup
 ### Prerequisites:
 - node version 20
 - npm version 10
+
 *note: other versions may work but have not been tested*
 
 ### Setup
 - Run `npm install`
-- Run `npm test`
 - Run `npm run build`
-- For the webpack-dev-server preview run  `npm start`
-- To host the build version on a simple local server run `npm run server`
 
 
-## Anything else?????
+## Usage
+
+The app can be accessed in one of two ways:
+
+### 1) Running the dev server
+- Run `npm start`
+- the app is then accessible on `localhost:4000`
+
+### 2) Hosting the build on a local server
+- Run `npm run server`
+- The app is then accessible on `localhost:3000`
+
+
+
+
